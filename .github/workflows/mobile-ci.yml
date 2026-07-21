@@ -1,0 +1,39 @@
+name: Mobile CI
+
+on:
+  push:
+    paths:
+      - 'mobile_app/**'
+      - '.github/workflows/mobile-ci.yml'
+  pull_request:
+    paths:
+      - 'mobile_app/**'
+      - '.github/workflows/mobile-ci.yml'
+
+defaults:
+  run:
+    working-directory: mobile_app
+
+jobs:
+  analyze-test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create .env for build
+        run: |
+          if [ ! -f .env ]; then
+            echo 'API_BASE_URL=http://127.0.0.1:8000/api/v1' > .env
+          fi
+
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+      - name: Build release APK
+        run: flutter build apk --release

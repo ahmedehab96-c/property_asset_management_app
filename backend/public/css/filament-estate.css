@@ -1,0 +1,261 @@
+/* Light estate theme for Filament admin */
+.fi-body,
+.fi-simple-page,
+.fi-main-ctn {
+    background:
+        radial-gradient(ellipse 55% 40% at 90% -5%, rgba(37, 99, 235, 0.12), transparent 55%),
+        radial-gradient(ellipse 50% 45% at -8% 100%, rgba(61, 139, 122, 0.10), transparent 50%),
+        radial-gradient(ellipse 35% 30% at 12% 18%, rgba(201, 162, 39, 0.08), transparent 45%),
+        linear-gradient(165deg, #F8FAFC 0%, #EEF4FF 32%, #F0F9F6 62%, #FBF8F1 100%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+}
+
+.fi-sidebar {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.98) 55%, rgba(238, 244, 255, 0.95) 100%) !important;
+    border-inline-end: 1px solid rgba(15, 23, 42, 0.08) !important;
+    backdrop-filter: blur(16px);
+}
+
+.fi-topbar,
+.fi-header {
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn,
+.fi-fo-component-ctn,
+.fi-simple-main {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.94) 0%,
+        rgba(248, 250, 252, 0.92) 55%,
+        rgba(240, 253, 249, 0.88) 100%
+    ) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06) !important;
+    backdrop-filter: blur(12px);
+}
+
+.fi-btn-primary,
+.fi-ac-btn-action {
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar-item-button:hover {
+    background: rgba(37, 99, 235, 0.10) !important;
+}
+
+.fi-logo,
+.fi-sidebar-header {
+    color: #1E3A5F !important;
+}
+
+.fi-sidebar-item-label,
+.fi-sidebar-group-label,
+.fi-header-heading,
+.fi-wi-stats-overview-stat-label,
+.fi-wi-stats-overview-stat-value {
+    color: #0F172A !important;
+}
+
+.fi-sidebar-item-button {
+    color: #334155 !important;
+}
+
+/* Language switcher — globe icon dropdown */
+.fi-locale-switcher {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    z-index: 40;
+}
+
+.fi-locale-switcher--centered {
+    margin: 0 auto 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.fi-locale-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    height: 2.25rem;
+    padding: 0 0.65rem 0 0.55rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 9999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    color: #1e3a5f;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.fi-locale-trigger:hover {
+    transform: translateY(-1px);
+    border-color: rgba(37, 99, 235, 0.25);
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.fi-locale-trigger:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.25),
+        0 8px 20px rgba(37, 99, 235, 0.12);
+}
+
+.fi-locale-trigger__icon {
+    display: inline-flex;
+    width: 1.15rem;
+    height: 1.15rem;
+    color: #2563eb;
+}
+
+.fi-locale-trigger__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.fi-locale-trigger__badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 0.2rem 0.35rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #2563eb 0%, #3d8b7a 100%);
+    color: #fff;
+}
+
+.fi-locale-trigger__chevron {
+    display: inline-flex;
+    width: 0.95rem;
+    height: 0.95rem;
+    color: #64748b;
+    transition: transform 0.2s ease;
+}
+
+.fi-locale-trigger__chevron.is-open {
+    transform: rotate(180deg);
+}
+
+.fi-locale-trigger__chevron svg {
+    width: 100%;
+    height: 100%;
+}
+
+.fi-locale-menu {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    inset-inline-end: 0;
+    min-width: 11.5rem;
+    padding: 0.45rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.fi-locale-menu__title {
+    margin: 0.15rem 0.5rem 0.35rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.fi-locale-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.6rem;
+    border-radius: 0.65rem;
+    text-decoration: none;
+    color: #0f172a;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.fi-locale-option:hover {
+    background: rgba(37, 99, 235, 0.08);
+    transform: translateX(-2px);
+}
+
+[dir='rtl'] .fi-locale-option:hover {
+    transform: translateX(2px);
+}
+
+.fi-locale-option.is-active {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(61, 139, 122, 0.1) 100%);
+    box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.15);
+}
+
+.fi-locale-option__flag {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.fi-locale-option__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.fi-locale-option__label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.fi-locale-option__code {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+
+.fi-locale-option__check {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    color: #2563eb;
+}
+
+.fi-locale-option__check svg {
+    width: 100%;
+    height: 100%;
+}
+
+.fi-locale-menu-enter,
+.fi-locale-menu-leave {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.fi-locale-menu-enter-start,
+.fi-locale-menu-leave-end {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+}
+
+.fi-locale-menu-enter-end,
+.fi-locale-menu-leave-start {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+[x-cloak] {
+    display: none !important;
+}

@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Report extends Model
 {
+    use Localizable;
+
     protected $fillable = [
-        'title', 'type', 'owner_id', 'property_id', 'amount', 'meta',
+        'title', 'title_ar', 'type', 'owner_id', 'property_id', 'amount', 'meta',
     ];
 
     protected function casts(): array
@@ -33,13 +36,14 @@ class Report extends Model
     {
         return array_merge([
             'id' => $this->id,
-            'title' => $this->title,
-            'name' => $this->title,
+            'title' => $this->localized('title'),
+            'title_ar' => $this->title_ar,
+            'name' => $this->localized('title'),
             'type' => $this->type,
             'amount' => $this->amount !== null ? (float) $this->amount : null,
             'owner_id' => $this->owner_id,
             'property_id' => $this->property_id,
-            'property_name' => $this->property?->name,
+            'property_name' => $this->property?->localized('name'),
             'created_at' => $this->created_at?->toIso8601String(),
         ], $this->meta ?? []);
     }

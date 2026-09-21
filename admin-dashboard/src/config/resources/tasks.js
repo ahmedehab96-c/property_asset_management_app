@@ -1,0 +1,26 @@
+export const tasksResource = {
+  key: 'tasks',
+  endpoint: '/api/v1/tasks',
+  navKey: 'tasks',
+  columns: [
+    { key: 'assignee_name', label: 'Assigned to' },
+    { key: 'property_name', label: 'Property' },
+    { key: 'title', label: 'Title', sortable: true },
+    { key: 'status', label: 'Status' },
+    { key: 'priority', label: 'Priority' },
+    { key: 'due_date', label: 'Due date', date: true, sortable: true },
+    { key: 'created_at', label: 'Created at', datetime: true, hiddenByDefault: true },
+    { key: 'updated_at', label: 'Updated at', datetime: true, hiddenByDefault: true },
+  ],
+  fields: [
+    { name: 'assigned_to', label: 'Assigned to', type: 'relation-select', endpoint: '/api/v1/users', labelField: 'name' },
+    { name: 'property_id', label: 'Property', type: 'relation-select', endpoint: '/api/v1/properties', labelField: 'name' },
+    { name: 'title', label: 'Title', type: 'text', required: true },
+    { name: 'title_ar', label: 'Title (Arabic)', type: 'text' },
+    { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
+    { name: 'description_ar', label: 'Description (Arabic)', type: 'textarea', fullWidth: true },
+    { name: 'status', label: 'Status', type: 'text', required: true, default: 'pending' },
+    { name: 'priority', label: 'Priority', type: 'text', required: true, default: 'medium' },
+    { name: 'due_date', label: 'Due date', type: 'date' },
+  ],
+};

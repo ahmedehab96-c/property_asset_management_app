@@ -39,8 +39,11 @@ class MaintenanceRequestController extends Controller
             'tenant_id' => ['nullable', 'exists:tenants,id'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'title' => ['required', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
             'problem_type' => ['nullable', 'string', 'max:100'],
+            'problem_type_ar' => ['nullable', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
             'status' => ['nullable', 'string', 'max:50'],
             'priority' => ['nullable', 'string', 'max:50'],
         ]);
@@ -63,8 +66,11 @@ class MaintenanceRequestController extends Controller
             'tenant_id' => ['nullable', 'exists:tenants,id'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'title' => ['sometimes', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
             'problem_type' => ['nullable', 'string', 'max:100'],
+            'problem_type_ar' => ['nullable', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
             'status' => ['nullable', 'string', 'max:50'],
             'priority' => ['nullable', 'string', 'max:50'],
         ]);

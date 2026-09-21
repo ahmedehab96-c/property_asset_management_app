@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\CalendarEvent;
 use App\Models\Contract;
 use App\Models\MaintenanceRequest;
+use App\Models\MobileRequest;
 use App\Models\Payment;
+use App\Models\Project;
 use App\Models\Property;
+use App\Models\Task;
 use App\Models\Tenant;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
@@ -69,6 +73,17 @@ class AnalyticsController extends Controller
         return ApiResponse::success([
             'months' => $months,
             'total' => collect($months)->sum('amount'),
+        ]);
+    }
+
+    public function operations(): JsonResponse
+    {
+        return ApiResponse::success([
+            'open_maintenance' => MaintenanceRequest::query()->where('status', 'in_progress')->count(),
+            'active_projects' => Project::query()->where('status', 'under_construction')->count(),
+            'pending_tasks' => Task::query()->where('status', 'pending')->count(),
+            'upcoming_events' => CalendarEvent::query()->whereDate('date', '>=', now())->count(),
+            'pending_mobile_requests' => MobileRequest::query()->where('status', 'pending')->count(),
         ]);
     }
 

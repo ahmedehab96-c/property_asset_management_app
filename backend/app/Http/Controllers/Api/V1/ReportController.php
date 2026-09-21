@@ -20,20 +20,55 @@ class ReportController extends Controller
 
         $items = $query->paginate((int) $request->input('per_page', 20));
 
-        return ApiResponse::success([
-            'items' => $items->getCollection()->map->toApiArray()->values(),
-            'data' => $items->getCollection()->map->toApiArray()->values(),
-            'meta' => [
-                'current_page' => $items->currentPage(),
-                'last_page' => $items->lastPage(),
-                'total' => $items->total(),
-            ],
-        ]);
+        return ApiResponse::paginated($items);
     }
 
     public function show(Report $report): JsonResponse
     {
         return ApiResponse::success($report->load(['owner', 'property'])->toApiArray());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
+            'type' => ['nullable', 'string', 'max:100'],
+            'owner_id' => ['nullable', 'exists:owners,id'],
+            'property_id' => ['nullable', 'exists:properties,id'],
+            'amount' => ['nullable', 'numeric'],
+            'meta' => ['nullable', 'array'],
+        ]);
+
+        $data['type'] = $data['type'] ?? 'financial';
+
+        $report = Report::query()->create($data);
+
+        return ApiResponse::success($report->load(['owner', 'property'])->toApiArray(), 'Report created', 201);
+    }
+
+    public function update(Request $request, Report $report): JsonResponse
+    {
+        $data = $request->validate([
+            'title' => ['sometimes', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
+            'type' => ['nullable', 'string', 'max:100'],
+            'owner_id' => ['nullable', 'exists:owners,id'],
+            'property_id' => ['nullable', 'exists:properties,id'],
+            'amount' => ['nullable', 'numeric'],
+            'meta' => ['nullable', 'array'],
+        ]);
+
+        $report->update($data);
+
+        return ApiResponse::success($report->fresh(['owner', 'property'])->toApiArray(), 'Report updated');
+    }
+
+    public function destroy(Report $report): JsonResponse
+    {
+        $report->delete();
+
+        return ApiResponse::success(null, 'Report deleted');
     }
 
     public function financial(): JsonResponse

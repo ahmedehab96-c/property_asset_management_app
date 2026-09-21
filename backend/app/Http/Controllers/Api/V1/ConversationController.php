@@ -30,6 +30,7 @@ class ConversationController extends Controller
     {
         $data = $request->validate([
             'subject' => ['nullable', 'string', 'max:255'],
+            'subject_ar' => ['nullable', 'string', 'max:255'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'tenant_id' => ['nullable', 'exists:tenants,id'],
             'body' => ['nullable', 'string'],
@@ -37,6 +38,7 @@ class ConversationController extends Controller
 
         $conversation = Conversation::query()->create([
             'subject' => $data['subject'] ?? 'Conversation',
+            'subject_ar' => $data['subject_ar'] ?? null,
             'owner_id' => $data['owner_id'] ?? null,
             'tenant_id' => $data['tenant_id'] ?? null,
             'last_message_at' => now(),
@@ -52,6 +54,33 @@ class ConversationController extends Controller
         }
 
         return ApiResponse::success($conversation->fresh(['owner', 'tenant'])->toApiArray(), 'Created', 201);
+    }
+
+    public function show(Conversation $conversation): JsonResponse
+    {
+        return ApiResponse::success($conversation->load(['owner', 'tenant'])->toApiArray());
+    }
+
+    public function update(Request $request, Conversation $conversation): JsonResponse
+    {
+        $data = $request->validate([
+            'subject' => ['sometimes', 'string', 'max:255'],
+            'subject_ar' => ['nullable', 'string', 'max:255'],
+            'owner_id' => ['nullable', 'exists:owners,id'],
+            'tenant_id' => ['nullable', 'exists:tenants,id'],
+            'last_message_at' => ['nullable', 'date'],
+        ]);
+
+        $conversation->update($data);
+
+        return ApiResponse::success($conversation->fresh(['owner', 'tenant'])->toApiArray(), 'Updated');
+    }
+
+    public function destroy(Conversation $conversation): JsonResponse
+    {
+        $conversation->delete();
+
+        return ApiResponse::success(null, 'Deleted');
     }
 
     public function messages(Conversation $conversation): JsonResponse

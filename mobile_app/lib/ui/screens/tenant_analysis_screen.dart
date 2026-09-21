@@ -61,6 +61,7 @@ class _TenantAnalysisScreenState extends ConsumerState<TenantAnalysisScreen> {
   }
 
   Future<void> _runAnalysis(LocalizedDemoData demo) async {
+    final isArabic = ref.read(isArabicProvider);
     setState(() {
       _isAnalyzing = true;
       _analysisResult = null;
@@ -98,6 +99,28 @@ class _TenantAnalysisScreenState extends ConsumerState<TenantAnalysisScreen> {
       portfolioAvgRent: avgRent,
       existingTenantMatch: existingMatch,
     );
+
+    Map<String, dynamic>? aiResult;
+    try {
+      aiResult = await _api.aiTenantAnalysis(
+        payload: {
+          'name': _nameController.text.trim(),
+          'phone': _phoneController.text.trim(),
+          'income': double.tryParse(_incomeController.text) ?? 0,
+          'employment': _employmentKey,
+          'has_previous_rentals': _hasPreviousRentals || existingMatch,
+        },
+        locale: isArabic ? 'ar' : 'en',
+      );
+    } catch (_) {}
+
+    if (aiResult != null) {
+      result['riskScore'] = aiResult['risk_score'] ?? result['riskScore'];
+      result['recommendation'] =
+          aiResult['recommendation']?.toString() ?? result['recommendation'];
+      result['aiSummary'] = aiResult['summary']?.toString();
+      result['aiProvider'] = aiResult['provider']?.toString();
+    }
 
     try {
       await _api.submitMobileRequest({
@@ -435,6 +458,16 @@ class _TenantAnalysisScreenState extends ConsumerState<TenantAnalysisScreen> {
                           color: context.estate.textPrimary,
                         ),
                       ),
+                      if ((_analysisResult!['aiSummary'] as String?)?.isNotEmpty ??
+                          false) ...[
+                        const SizedBox(height: 12),
+                        Text(
+                          _analysisResult!['aiSummary'] as String,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: context.estate.textSecondary,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),

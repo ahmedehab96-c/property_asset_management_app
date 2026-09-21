@@ -17,15 +17,46 @@ class NotificationController extends Controller
             ->latest()
             ->paginate((int) $request->input('per_page', 30));
 
-        return ApiResponse::success([
-            'items' => $items->getCollection()->map->toApiArray()->values(),
-            'data' => $items->getCollection()->map->toApiArray()->values(),
-            'meta' => [
-                'current_page' => $items->currentPage(),
-                'last_page' => $items->lastPage(),
-                'total' => $items->total(),
-            ],
+        return ApiResponse::paginated($items);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
+            'message' => ['nullable', 'string'],
+            'message_ar' => ['nullable', 'string'],
+            'type' => ['nullable', 'string', 'max:50'],
+            'read_at' => ['nullable', 'date'],
         ]);
+
+        $notification = AppNotification::query()->create($data);
+
+        return ApiResponse::success($notification->toApiArray(), 'Notification created', 201);
+    }
+
+    public function show(AppNotification $notification): JsonResponse
+    {
+        return ApiResponse::success($notification->toApiArray());
+    }
+
+    public function update(Request $request, AppNotification $notification): JsonResponse
+    {
+        $data = $request->validate([
+            'user_id' => ['sometimes', 'exists:users,id'],
+            'title' => ['sometimes', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
+            'message' => ['nullable', 'string'],
+            'message_ar' => ['nullable', 'string'],
+            'type' => ['nullable', 'string', 'max:50'],
+            'read_at' => ['nullable', 'date'],
+        ]);
+
+        $notification->update($data);
+
+        return ApiResponse::success($notification->fresh()->toApiArray(), 'Notification updated');
     }
 
     public function unread(Request $request): JsonResponse

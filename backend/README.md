@@ -42,7 +42,8 @@ php artisan serve
 - CRUD: `/properties`, `/tenants`, `/contracts`, `/owners`, `/users`, `/payments`
 - Dashboard: `/dashboard/metrics`, `/dashboard/activities`, …
 - Analytics: `/analytics/overview`, `/analytics/revenue`, `/analytics/occupancy`
-- Image analysis: `POST /analytics/image-analysis` (local heuristics; optional OpenAI Vision via `OPENAI_API_KEY`)
+- Image analysis: `POST /analytics/image-analysis` (Gemini Vision via `GEMINI_API_KEY`, local heuristics fallback)
+- AI (Gemini, server-side): `GET /ai/status`, `POST /ai/chat`, `POST /ai/market-analysis`, `POST /ai/tenant-analysis`, `POST /ai/financial-predictions`
 - Operations: `/maintenance-requests`, `/projects`, `/tasks`, `/conversations`, …
 - Notifications: `/notifications`
 

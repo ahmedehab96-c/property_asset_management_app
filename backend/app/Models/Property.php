@@ -2,22 +2,29 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Property extends Model
 {
+    use Localizable;
+
     protected $fillable = [
         'owner_id',
         'name',
+        'name_ar',
         'type',
         'location',
+        'location_ar',
         'address',
+        'address_ar',
         'status',
         'area',
         'monthly_revenue',
         'description',
+        'description_ar',
         'latitude',
         'longitude',
     ];
@@ -58,20 +65,24 @@ class Property extends Model
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'title' => $this->name,
+            'name' => $this->localized('name'),
+            'name_ar' => $this->name_ar,
+            'title' => $this->localized('name'),
             'type' => $this->type,
-            'location' => $this->location,
-            'address' => $this->address ?? $this->location,
+            'location' => $this->localized('location'),
+            'location_ar' => $this->location_ar,
+            'address' => $this->localized('address') ?? $this->localized('location'),
+            'address_ar' => $this->address_ar,
             'status' => $this->status,
             'area' => $this->area !== null ? (float) $this->area : null,
             'monthly_revenue' => (float) $this->monthly_revenue,
             'monthlyRevenue' => (float) $this->monthly_revenue,
             'owner_id' => $this->owner_id,
-            'owner_name' => $this->owner?->name,
-            'tenant_name' => $tenant?->name,
-            'tenantName' => $tenant?->name,
-            'description' => $this->description,
+            'owner_name' => $this->owner?->localized('name'),
+            'tenant_name' => $tenant?->localized('name'),
+            'tenantName' => $tenant?->localized('name'),
+            'description' => $this->localized('description'),
+            'description_ar' => $this->description_ar,
             'latitude' => $this->latitude !== null ? (float) $this->latitude : null,
             'longitude' => $this->longitude !== null ? (float) $this->longitude : null,
             'lat' => $this->latitude !== null ? (float) $this->latitude : null,

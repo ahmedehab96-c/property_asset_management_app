@@ -27,6 +27,7 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
   bool _hasResult = false;
   Locale? _lastLocale;
   Map<String, dynamic>? _analytics;
+  Map<String, dynamic>? _aiResult;
 
   List<String> _cities(AppLocalizations l10n) =>
       [l10n.riyadh, l10n.jeddah, l10n.dammam, l10n.abuDhabi];
@@ -38,16 +39,30 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
     setState(() {
       _isAnalyzing = true;
       _hasResult = false;
+      _aiResult = null;
     });
+    final l10n = AppLocalizations.of(context);
+    final isArabic = ref.read(isArabicProvider);
+    final city = _selectedCity ?? _cities(l10n).first;
+    final type = _selectedType ?? _types(l10n).first;
+
     Map<String, dynamic>? data;
+    Map<String, dynamic>? aiData;
     try {
       data = await OwnerApiService().getAnalyticsOverview();
-    } catch (_) {
-      data = null;
-    }
+    } catch (_) {}
+    try {
+      aiData = await OwnerApiService().aiMarketAnalysis(
+        city: city,
+        propertyType: type,
+        locale: isArabic ? 'ar' : 'en',
+      );
+    } catch (_) {}
+
     if (!mounted) return;
     setState(() {
       _analytics = data;
+      _aiResult = aiData;
       _isAnalyzing = false;
       _hasResult = true;
     });
@@ -77,6 +92,20 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
       _selectedCity ??= cities.first;
       _selectedType ??= types.first;
     }
+  }
+
+  List<String> _marketRecommendations(AppLocalizations l10n) {
+    final raw = _aiResult?['recommendations'];
+    if (raw is List) {
+      final items = raw
+          .map((item) => item.toString())
+          .where((item) => item.trim().isNotEmpty)
+          .toList();
+      if (items.isNotEmpty) {
+        return items;
+      }
+    }
+    return [l10n.marketRec1, l10n.marketRec2, l10n.marketRec3];
   }
 
   @override
@@ -299,7 +328,7 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                                 ),
                                 SizedBox(height: 4),
                                 Text(
-                                  '${_money(_analytics?['monthly_revenue'] as num?, l10n)}/${l10n.perMonth}',
+                                  '${_money((_aiResult?['avg_rent'] as num?) ?? (_analytics?['monthly_revenue'] as num?), l10n)}/${l10n.perMonth}',
                                   style: theme.textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.accentGold,
@@ -348,7 +377,8 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                             child: _PriceRangeBox(
                               label: l10n.minimum,
                               value: _money(
-                                ((_analytics?['monthly_revenue'] as num?) ?? 8500) * 0.6,
+                                (_aiResult?['min_rent'] as num?) ??
+                                    (((_analytics?['monthly_revenue'] as num?) ?? 8500) * 0.6),
                                 l10n,
                               ),
                               color: Colors.blue,
@@ -358,7 +388,11 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                           Expanded(
                             child: _PriceRangeBox(
                               label: l10n.average,
-                              value: _money(_analytics?['monthly_revenue'] as num?, l10n),
+                              value: _money(
+                                (_aiResult?['avg_rent'] as num?) ??
+                                    (_analytics?['monthly_revenue'] as num?),
+                                l10n,
+                              ),
                               color: AppColors.accentGold,
                             ),
                           ),
@@ -367,7 +401,8 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                             child: _PriceRangeBox(
                               label: l10n.maximum,
                               value: _money(
-                                ((_analytics?['monthly_revenue'] as num?) ?? 8500) * 1.4,
+                                (_aiResult?['max_rent'] as num?) ??
+                                    (((_analytics?['monthly_revenue'] as num?) ?? 8500) * 1.4),
                                 l10n,
                               ),
                               color: Colors.green,
@@ -402,19 +437,19 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                       SizedBox(height: 16),
                       _TrendItem(
                         label: l10n.monthlyChange,
-                        value: "+3.2%",
+                        value: (_aiResult?['monthly_change'] ?? '+3.2%').toString(),
                         isPositive: true,
                       ),
                       SizedBox(height: 12),
                       _TrendItem(
                         label: l10n.yearlyChange,
-                        value: "+12.5%",
+                        value: (_aiResult?['yearly_change'] ?? '+12.5%').toString(),
                         isPositive: true,
                       ),
                       SizedBox(height: 12),
                       _TrendItem(
                         label: l10n.occupancyRate,
-                        value: "${_analytics?['occupancy_rate'] ?? 85}%",
+                        value: '${_aiResult?['occupancy_rate'] ?? _analytics?['occupancy_rate'] ?? 85}%',
                         isPositive: true,
                       ),
                     ],
@@ -450,16 +485,11 @@ class _MarketAnalysisScreenState extends ConsumerState<MarketAnalysisScreen> {
                         ],
                       ),
                       SizedBox(height: 16),
-                      _RecommendationItem(
-                        text: l10n.marketRec1,
-                      ),
-                      SizedBox(height: 12),
-                      _RecommendationItem(
-                        text: l10n.marketRec2,
-                      ),
-                      SizedBox(height: 12),
-                      _RecommendationItem(
-                        text: l10n.marketRec3,
+                      ..._marketRecommendations(l10n).map(
+                        (text) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _RecommendationItem(text: text),
+                        ),
                       ),
                     ],
                   ),

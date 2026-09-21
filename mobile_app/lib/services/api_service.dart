@@ -121,9 +121,19 @@ class ApiService {
   }
 
   /// Generic POST request
-  Future<Response> post(String endpoint, {dynamic data}) async {
+  Future<Response> post(
+    String endpoint, {
+    dynamic data,
+    Duration? receiveTimeout,
+  }) async {
     try {
-      final response = await _dio.post(endpoint, data: data);
+      final response = await _dio.post(
+        endpoint,
+        data: data,
+        options: receiveTimeout != null
+            ? Options(receiveTimeout: receiveTimeout)
+            : null,
+      );
       return response;
     } on DioException catch (e) {
       throw _handleError(e);

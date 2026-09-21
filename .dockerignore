@@ -1,0 +1,32 @@
+# Node / frontend
+admin-dashboard/node_modules
+admin-dashboard/dist
+admin-dashboard/.env
+
+# PHP / backend
+backend/vendor
+backend/node_modules
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/storage/*.key
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*.php
+backend/public/dashboard
+backend/public/build
+backend/public/hot
+backend/public/storage
+
+# Flutter (unrelated to this image)
+mobile_app
+
+# VCS / editors / misc
+.git
+.github
+.idea
+.vscode
+.DS_Store
+*.md

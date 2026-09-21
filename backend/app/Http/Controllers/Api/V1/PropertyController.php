@@ -43,14 +43,18 @@ class PropertyController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:100'],
             'location' => ['nullable', 'string', 'max:255'],
+            'location_ar' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:50'],
             'area' => ['nullable', 'numeric'],
             'monthly_revenue' => ['nullable', 'numeric'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
         ]);
 
         $property = Property::query()->create($data);
@@ -67,14 +71,18 @@ class PropertyController extends Controller
     {
         $data = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:100'],
             'location' => ['nullable', 'string', 'max:255'],
+            'location_ar' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:50'],
             'area' => ['nullable', 'numeric'],
             'monthly_revenue' => ['nullable', 'numeric'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
         ]);
 
         $property->update($data);

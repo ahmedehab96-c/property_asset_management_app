@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
+    use Localizable;
+
     protected $fillable = [
-        'assigned_to', 'property_id', 'title', 'description', 'status', 'priority', 'due_date',
+        'assigned_to', 'property_id', 'title', 'title_ar', 'description', 'description_ar',
+        'status', 'priority', 'due_date',
     ];
 
     protected function casts(): array
@@ -30,15 +34,17 @@ class Task extends Model
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
+            'title' => $this->localized('title'),
+            'title_ar' => $this->title_ar,
+            'description' => $this->localized('description'),
+            'description_ar' => $this->description_ar,
             'status' => $this->status,
             'priority' => $this->priority,
             'due_date' => $this->due_date?->toDateString(),
             'assigned_to' => $this->assigned_to,
             'assignee_name' => $this->assignee?->name,
             'property_id' => $this->property_id,
-            'property_name' => $this->property?->name,
+            'property_name' => $this->property?->localized('name'),
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }

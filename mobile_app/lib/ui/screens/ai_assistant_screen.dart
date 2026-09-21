@@ -68,10 +68,25 @@ class _AIAssistantScreenState extends ConsumerState<AIAssistantScreen> {
     // Get response from AI service
     final l10n = AppLocalizations.of(context);
     final isArabic = ref.read(isArabicProvider);
+    final priorMessages = _messages
+        .where((message) => !message.isLoading && message.text != '...')
+        .toList();
+    if (priorMessages.isNotEmpty && priorMessages.last.isUser) {
+      priorMessages.removeLast();
+    }
+    final history = priorMessages
+        .map(
+          (message) => {
+            'role': message.isUser ? 'user' : 'assistant',
+            'content': message.text,
+          },
+        )
+        .toList();
     final response = await AIService.sendMessage(
       userMessage,
       l10n: l10n,
       isArabic: isArabic,
+      history: history,
     );
     
     setState(() {

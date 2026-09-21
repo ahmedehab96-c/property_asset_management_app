@@ -1,0 +1,26 @@
+export const calendarEventsResource = {
+  key: 'calendar-events',
+  endpoint: '/api/v1/calendar/events',
+  navKey: 'calendar_events',
+  columns: [
+    { key: 'property_name', label: 'Property' },
+    { key: 'title', label: 'Title', sortable: true },
+    { key: 'type', label: 'Type' },
+    { key: 'date', label: 'Date', date: true, sortable: true },
+    { key: 'time', label: 'Time' },
+    { key: 'amount', label: 'Amount', sortable: true, numeric: true, currency: true },
+    { key: 'created_at', label: 'Created at', datetime: true, hiddenByDefault: true },
+    { key: 'updated_at', label: 'Updated at', datetime: true, hiddenByDefault: true },
+  ],
+  fields: [
+    { name: 'property_id', label: 'Property', type: 'relation-select', endpoint: '/api/v1/properties', labelField: 'name' },
+    { name: 'owner_id', label: 'Owner', type: 'relation-select', endpoint: '/api/v1/owners', labelField: 'name' },
+    { name: 'title', label: 'Title', type: 'text', required: true },
+    { name: 'title_ar', label: 'Title (Arabic)', type: 'text' },
+    { name: 'type', label: 'Type', type: 'text', required: true, default: 'maintenance' },
+    { name: 'date', label: 'Date', type: 'date', required: true },
+    { name: 'time', label: 'Time', type: 'text', hint: 'e.g. 14:30' },
+    { name: 'amount', label: 'Amount', type: 'number' },
+    { name: 'notes', label: 'Notes', type: 'textarea', fullWidth: true },
+  ],
+};

@@ -41,12 +41,18 @@ class CalendarEventController extends Controller
         return ApiResponse::success($items);
     }
 
+    public function show(CalendarEvent $calendarEvent): JsonResponse
+    {
+        return ApiResponse::success($calendarEvent->load('property')->toApiArray());
+    }
+
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
             'property_id' => ['nullable', 'exists:properties,id'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'title' => ['required', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:50'],
             'date' => ['required', 'date'],
             'time' => ['nullable', 'string', 'max:20'],
@@ -65,6 +71,7 @@ class CalendarEventController extends Controller
             'property_id' => ['nullable', 'exists:properties,id'],
             'owner_id' => ['nullable', 'exists:owners,id'],
             'title' => ['sometimes', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:50'],
             'date' => ['sometimes', 'date'],
             'time' => ['nullable', 'string', 'max:20'],

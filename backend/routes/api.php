@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AiController;
 use App\Http\Controllers\Api\V1\ImageAnalysisController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
@@ -49,7 +50,16 @@ Route::prefix('v1')->group(function () {
         Route::get('analytics/overview', [AnalyticsController::class, 'overview']);
         Route::get('analytics/revenue', [AnalyticsController::class, 'revenue']);
         Route::get('analytics/occupancy', [AnalyticsController::class, 'occupancy']);
+        Route::get('analytics/operations', [AnalyticsController::class, 'operations']);
         Route::post('analytics/image-analysis', [ImageAnalysisController::class, 'analyze']);
+
+        Route::prefix('ai')->group(function () {
+            Route::get('status', [AiController::class, 'status']);
+            Route::post('chat', [AiController::class, 'chat']);
+            Route::post('market-analysis', [AiController::class, 'marketAnalysis']);
+            Route::post('tenant-analysis', [AiController::class, 'tenantAnalysis']);
+            Route::post('financial-predictions', [AiController::class, 'financialPredictions']);
+        });
 
         Route::get('properties/search', [PropertyController::class, 'search']);
         Route::get('properties/filter', [PropertyController::class, 'filter']);
@@ -87,8 +97,11 @@ Route::prefix('v1')->group(function () {
 
         Route::get('notifications', [NotificationController::class, 'index']);
         Route::get('notifications/unread', [NotificationController::class, 'unread']);
+        Route::post('notifications', [NotificationController::class, 'store']);
         Route::post('notifications/{id}/read', [NotificationController::class, 'markRead']);
         Route::post('notifications/read-all', [NotificationController::class, 'markAllRead']);
+        Route::get('notifications/{notification}', [NotificationController::class, 'show']);
+        Route::put('notifications/{notification}', [NotificationController::class, 'update']);
         Route::delete('notifications/{id}', [NotificationController::class, 'destroy']);
 
         Route::get('maintenance-requests', [MaintenanceRequestController::class, 'index']);
@@ -100,6 +113,7 @@ Route::prefix('v1')->group(function () {
         Route::get('calendar/events', [CalendarEventController::class, 'index']);
         Route::get('calendar/events/upcoming', [CalendarEventController::class, 'upcoming']);
         Route::post('calendar/events', [CalendarEventController::class, 'store']);
+        Route::get('calendar/events/{calendarEvent}', [CalendarEventController::class, 'show']);
         Route::put('calendar/events/{calendarEvent}', [CalendarEventController::class, 'update']);
         Route::delete('calendar/events/{calendarEvent}', [CalendarEventController::class, 'destroy']);
 
@@ -111,16 +125,25 @@ Route::prefix('v1')->group(function () {
         Route::post('conversations', [ConversationController::class, 'store']);
         Route::get('conversations/{conversation}/messages', [ConversationController::class, 'messages']);
         Route::post('conversations/{conversation}/messages', [ConversationController::class, 'storeMessage']);
+        Route::get('conversations/{conversation}', [ConversationController::class, 'show']);
+        Route::put('conversations/{conversation}', [ConversationController::class, 'update']);
+        Route::delete('conversations/{conversation}', [ConversationController::class, 'destroy']);
 
         Route::get('reports', [ReportController::class, 'index']);
         Route::get('reports/financial', [ReportController::class, 'financial']);
         Route::get('reports/tenant', [ReportController::class, 'tenant']);
         Route::get('reports/property', [ReportController::class, 'property']);
         Route::get('reports/contract', [ReportController::class, 'contract']);
+        Route::post('reports', [ReportController::class, 'store']);
         Route::get('reports/{report}', [ReportController::class, 'show']);
+        Route::put('reports/{report}', [ReportController::class, 'update']);
+        Route::delete('reports/{report}', [ReportController::class, 'destroy']);
 
         Route::get('mobile-requests', [MobileRequestController::class, 'index']);
         Route::post('mobile-requests', [MobileRequestController::class, 'store']);
+        Route::get('mobile-requests/{mobileRequest}', [MobileRequestController::class, 'show']);
+        Route::put('mobile-requests/{mobileRequest}', [MobileRequestController::class, 'update']);
+        Route::delete('mobile-requests/{mobileRequest}', [MobileRequestController::class, 'destroy']);
 
         Route::post('upload/multiple', [UploadController::class, 'multiple']);
         Route::post('upload/image', [UploadController::class, 'image']);

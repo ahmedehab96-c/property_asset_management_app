@@ -244,7 +244,7 @@ class OwnerApiService {
     return OwnerApiMappers.unwrapObject(res.data);
   }
 
-  /// Server-side photo analysis (local heuristics + optional OpenAI Vision).
+  /// Server-side photo analysis (Gemini Vision + local heuristics fallback).
   Future<Map<String, dynamic>?> analyzePropertyImages(List<String> filePaths) async {
     if (filePaths.isEmpty) return null;
     final res = await _api.uploadMultipleFiles(
@@ -267,5 +267,73 @@ class OwnerApiService {
       fieldName: 'files',
     );
     return OwnerApiMappers.extractUploadUrls(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiChat({
+    required String message,
+    required String locale,
+    List<Map<String, String>>? history,
+    bool includePortfolio = true,
+  }) async {
+    final res = await _api.post(
+      ApiConfig.aiChat,
+      data: {
+        'message': message,
+        'locale': locale,
+        if (history != null && history.isNotEmpty) 'history': history,
+        'include_portfolio': includePortfolio,
+      },
+      receiveTimeout: ApiConfig.aiReceiveTimeout,
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiMarketAnalysis({
+    required String city,
+    required String propertyType,
+    required String locale,
+  }) async {
+    final res = await _api.post(
+      ApiConfig.aiMarketAnalysis,
+      data: {
+        'city': city,
+        'property_type': propertyType,
+        'locale': locale,
+      },
+      receiveTimeout: ApiConfig.aiReceiveTimeout,
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiTenantAnalysis({
+    required Map<String, dynamic> payload,
+    required String locale,
+  }) async {
+    final res = await _api.post(
+      ApiConfig.aiTenantAnalysis,
+      data: {...payload, 'locale': locale},
+      receiveTimeout: ApiConfig.aiReceiveTimeout,
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiFinancialPredictions({
+    required String period,
+    required String locale,
+  }) async {
+    final res = await _api.post(
+      ApiConfig.aiFinancialPredictions,
+      data: {
+        'period': period,
+        'locale': locale,
+      },
+      receiveTimeout: ApiConfig.aiReceiveTimeout,
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiStatus() async {
+    final res = await _api.get(ApiConfig.aiStatus);
+    return OwnerApiMappers.unwrapObject(res.data);
   }
 }

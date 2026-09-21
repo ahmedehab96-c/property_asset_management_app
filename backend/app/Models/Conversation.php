@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Conversation extends Model
 {
+    use Localizable;
+
     protected $fillable = [
-        'subject', 'owner_id', 'tenant_id', 'last_message_at',
+        'subject', 'subject_ar', 'owner_id', 'tenant_id', 'last_message_at',
     ];
 
     protected function casts(): array
@@ -38,11 +41,12 @@ class Conversation extends Model
 
         return [
             'id' => $this->id,
-            'subject' => $this->subject,
+            'subject' => $this->localized('subject'),
+            'subject_ar' => $this->subject_ar,
             'owner_id' => $this->owner_id,
             'tenant_id' => $this->tenant_id,
-            'owner_name' => $this->owner?->name,
-            'tenant_name' => $this->tenant?->name,
+            'owner_name' => $this->owner?->localized('name'),
+            'tenant_name' => $this->tenant?->localized('name'),
             'last_message' => $last?->body,
             'last_message_at' => ($this->last_message_at ?? $last?->created_at)?->toIso8601String(),
         ];

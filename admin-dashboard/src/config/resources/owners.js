@@ -1,0 +1,26 @@
+export const ownersResource = {
+  key: 'owners',
+  endpoint: '/api/v1/owners',
+  navKey: 'owners',
+  columns: [
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'email', label: 'Email address' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'address', label: 'Address' },
+    { key: 'wallet_balance', label: 'Wallet balance', sortable: true, numeric: true, currency: true },
+    { key: 'join_date', label: 'Join date', date: true, sortable: true },
+    { key: 'created_at', label: 'Created at', datetime: true, hiddenByDefault: true },
+    { key: 'updated_at', label: 'Updated at', datetime: true, hiddenByDefault: true },
+  ],
+  fields: [
+    { name: 'user_id', label: 'User', type: 'relation-select', endpoint: '/api/v1/users', labelField: 'name' },
+    { name: 'name', label: 'Name', type: 'text', required: true },
+    { name: 'name_ar', label: 'Name (Arabic)', type: 'text' },
+    { name: 'email', label: 'Email address', type: 'text', inputType: 'email' },
+    { name: 'phone', label: 'Phone', type: 'text', inputType: 'tel' },
+    { name: 'address', label: 'Address', type: 'text' },
+    { name: 'address_ar', label: 'Address (Arabic)', type: 'text' },
+    { name: 'wallet_balance', label: 'Wallet balance', type: 'number', required: true, default: 0 },
+    { name: 'join_date', label: 'Join date', type: 'date' },
+  ],
+};

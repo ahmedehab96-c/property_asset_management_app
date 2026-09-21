@@ -39,6 +39,7 @@ class TenantController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'mobile' => ['nullable', 'string', 'max:50'],
@@ -46,6 +47,7 @@ class TenantController extends Controller
             'status' => ['nullable', 'string', 'max:50'],
             'rent_amount' => ['nullable', 'numeric'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
         ]);
 
         $data['phone'] = $data['phone'] ?? $data['mobile'] ?? null;
@@ -65,6 +67,7 @@ class TenantController extends Controller
     {
         $data = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'mobile' => ['nullable', 'string', 'max:50'],
@@ -72,6 +75,7 @@ class TenantController extends Controller
             'status' => ['nullable', 'string', 'max:50'],
             'rent_amount' => ['nullable', 'numeric'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
         ]);
 
         if (isset($data['mobile']) && ! isset($data['phone'])) {

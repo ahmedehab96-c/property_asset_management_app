@@ -17,7 +17,8 @@ class AppLocalizations {
       // Splash Screen
       'app_name': 'إدارة الممتلكات',
       'welcome_subtitle': 'إدارة ممتلكاتك بكل سهولة',
-      
+      'splash_loading': 'جارٍ التحميل...',
+
       // Login Screen
       'login': 'تسجيل الدخول',
       'login_subtitle': 'أدخل بياناتك للوصول إلى حسابك',
@@ -863,7 +864,8 @@ class AppLocalizations {
       // Splash Screen
       'app_name': 'Property Management',
       'welcome_subtitle': 'Manage your properties with ease',
-      
+      'splash_loading': 'Loading...',
+
       // Login Screen
       'login': 'Login',
       'login_subtitle': 'Enter your credentials to access your account',
@@ -1697,6 +1699,7 @@ class AppLocalizations {
   // Getters for easier access
   String get appName => translate('app_name');
   String get welcomeSubtitle => translate('welcome_subtitle');
+  String get splashLoading => translate('splash_loading');
   String get login => translate('login');
   String get loginSubtitle => translate('login_subtitle');
   String get email => translate('email');

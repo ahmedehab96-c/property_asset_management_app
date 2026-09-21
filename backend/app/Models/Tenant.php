@@ -2,19 +2,24 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tenant extends Model
 {
+    use Localizable;
+
     protected $fillable = [
         'user_id',
         'property_id',
         'name',
+        'name_ar',
         'email',
         'phone',
         'address',
+        'address_ar',
         'status',
         'rent_amount',
     ];
@@ -53,16 +58,18 @@ class Tenant extends Model
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'full_name' => $this->name,
+            'name' => $this->localized('name'),
+            'name_ar' => $this->name_ar,
+            'full_name' => $this->localized('name'),
             'email' => $this->email,
             'phone' => $this->phone,
             'mobile' => $this->phone,
-            'address' => $this->address,
+            'address' => $this->localized('address'),
+            'address_ar' => $this->address_ar,
             'status' => $this->status,
             'property_id' => $this->property_id,
-            'property_name' => $this->property?->name,
-            'property' => $this->property?->name,
+            'property_name' => $this->property?->localized('name'),
+            'property' => $this->property?->localized('name'),
             'rent_amount' => (float) $this->rent_amount,
             'rentAmount' => (float) $this->rent_amount,
             'contract_end' => $activeContract?->end_date?->toDateString(),

@@ -2,18 +2,23 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Owner extends Model
 {
+    use Localizable;
+
     protected $fillable = [
         'user_id',
         'name',
+        'name_ar',
         'email',
         'phone',
         'address',
+        'address_ar',
         'wallet_balance',
         'join_date',
     ];
@@ -45,12 +50,14 @@ class Owner extends Model
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'full_name' => $this->name,
+            'name' => $this->localized('name'),
+            'name_ar' => $this->name_ar,
+            'full_name' => $this->localized('name'),
             'email' => $this->email,
             'phone' => $this->phone,
             'mobile' => $this->phone,
-            'address' => $this->address,
+            'address' => $this->localized('address'),
+            'address_ar' => $this->address_ar,
             'properties_count' => $this->properties()->count(),
             'total_revenue' => (float) $this->properties()->sum('monthly_revenue'),
             'balance' => (float) $this->wallet_balance,

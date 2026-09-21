@@ -39,10 +39,12 @@ class OwnerController extends Controller
     {
         $data = $request->validate([
             'name' => ['required_without:full_name', 'nullable', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'full_name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
             'wallet_balance' => ['nullable', 'numeric'],
             'join_date' => ['nullable', 'date'],
             'user_id' => ['nullable', 'exists:users,id'],
@@ -66,10 +68,12 @@ class OwnerController extends Controller
     {
         $data = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'full_name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'address' => ['nullable', 'string', 'max:255'],
+            'address_ar' => ['nullable', 'string', 'max:255'],
             'wallet_balance' => ['nullable', 'numeric'],
             'join_date' => ['nullable', 'date'],
         ]);

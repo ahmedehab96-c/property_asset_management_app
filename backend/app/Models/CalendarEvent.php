@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Support\Localizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CalendarEvent extends Model
 {
+    use Localizable;
+
     protected $fillable = [
-        'property_id', 'owner_id', 'title', 'type', 'date', 'time', 'amount', 'notes',
+        'property_id', 'owner_id', 'title', 'title_ar', 'type', 'date', 'time', 'amount', 'notes',
     ];
 
     protected function casts(): array
@@ -33,8 +36,9 @@ class CalendarEvent extends Model
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'name' => $this->title,
+            'title' => $this->localized('title'),
+            'title_ar' => $this->title_ar,
+            'name' => $this->localized('title'),
             'type' => $this->type,
             'date' => $this->date?->toDateString(),
             'start_at' => $this->date?->toDateString(),
@@ -42,8 +46,8 @@ class CalendarEvent extends Model
             'start_time' => $this->time ?? '09:00',
             'amount' => $this->amount !== null ? (float) $this->amount : null,
             'property_id' => $this->property_id,
-            'property_name' => $this->property?->name,
-            'property' => $this->property?->name,
+            'property_name' => $this->property?->localized('name'),
+            'property' => $this->property?->localized('name'),
             'notes' => $this->notes,
         ];
     }

@@ -1,0 +1,28 @@
+export const paymentsResource = {
+  key: 'payments',
+  endpoint: '/api/v1/payments',
+  navKey: 'payments',
+  columns: [
+    { key: 'tenant_name', label: 'Tenant' },
+    { key: 'property_name', label: 'Property' },
+    { key: 'contract_id', label: 'Contract', lookup: { endpoint: '/api/v1/contracts', labelField: 'contract_number' } },
+    { key: 'amount', label: 'Amount', sortable: true, numeric: true, currency: true },
+    { key: 'due_date', label: 'Due date', date: true, sortable: true },
+    { key: 'payment_date', label: 'Payment date', date: true, sortable: true },
+    { key: 'status', label: 'Status' },
+    { key: 'method', label: 'Method' },
+    { key: 'created_at', label: 'Created at', datetime: true, hiddenByDefault: true },
+    { key: 'updated_at', label: 'Updated at', datetime: true, hiddenByDefault: true },
+  ],
+  fields: [
+    { name: 'tenant_id', label: 'Tenant', type: 'relation-select', endpoint: '/api/v1/tenants', labelField: 'name' },
+    { name: 'property_id', label: 'Property', type: 'relation-select', endpoint: '/api/v1/properties', labelField: 'name' },
+    { name: 'contract_id', label: 'Contract', type: 'relation-select', endpoint: '/api/v1/contracts', labelField: 'contract_number' },
+    { name: 'amount', label: 'Amount', type: 'number', required: true },
+    { name: 'due_date', label: 'Due date', type: 'date' },
+    { name: 'payment_date', label: 'Payment date', type: 'date' },
+    { name: 'status', label: 'Status', type: 'text', required: true, default: 'pending' },
+    { name: 'method', label: 'Method', type: 'text' },
+    { name: 'notes', label: 'Notes', type: 'textarea', fullWidth: true },
+  ],
+};

@@ -4,6 +4,7 @@ import 'package:property_asset_management_app/l10n/app_localizations.dart';
 import 'package:property_asset_management_app/core/providers/locale_notifier.dart';
 import 'package:property_asset_management_app/widgets/app_scaffold.dart';
 import 'package:property_asset_management_app/theme/app_theme.dart';
+import 'package:property_asset_management_app/services/owner_api_service.dart';
 
 class FinancialPredictionsScreen extends ConsumerStatefulWidget {
   const FinancialPredictionsScreen({super.key});
@@ -17,6 +18,60 @@ class _FinancialPredictionsScreenState
     extends ConsumerState<FinancialPredictionsScreen> {
   String _selectedPeriod = 'three';
   bool _isGenerating = false;
+  Map<String, dynamic>? _aiPredictions;
+
+  Future<void> _generatePredictions() async {
+    setState(() {
+      _isGenerating = true;
+      _aiPredictions = null;
+    });
+    final isArabic = ref.read(isArabicProvider);
+    Map<String, dynamic>? result;
+    try {
+      result = await OwnerApiService().aiFinancialPredictions(
+        period: _selectedPeriod,
+        locale: isArabic ? 'ar' : 'en',
+      );
+    } catch (_) {}
+
+    if (!mounted) return;
+    setState(() {
+      _aiPredictions = result;
+      _isGenerating = false;
+    });
+  }
+
+  String _formatAed(num? value, {String fallback = '—'}) {
+    if (value == null) return fallback;
+    final formatted = value.round().toString().replaceAllMapped(
+          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
+          (match) => '${match[1]},',
+        );
+    return '$formatted د.إ';
+  }
+
+  List<Map<String, dynamic>> _revenueItems(AppLocalizations l10n) {
+    final raw = _aiPredictions?['revenue_forecast'];
+    if (raw is List && raw.isNotEmpty) {
+      return raw.whereType<Map>().map((item) {
+        final month = item['month'];
+        final label = month is num
+            ? '${l10n.firstMonth.split(' ').first} $month'
+            : l10n.firstMonth;
+        return {
+          'label': label,
+          'value': _formatAed(item['amount'] as num?),
+          'trend': item['trend']?.toString() ?? '+0%',
+        };
+      }).toList();
+    }
+
+    return [
+      {'label': l10n.firstMonth, 'value': '83,000 د.إ', 'trend': '+2.5%'},
+      {'label': l10n.secondMonth, 'value': '85,000 د.إ', 'trend': '+2.4%'},
+      {'label': l10n.thirdMonth, 'value': '87,500 د.إ', 'trend': '+2.9%'},
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,12 +162,7 @@ class _FinancialPredictionsScreenState
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          setState(() => _isGenerating = true);
-                          Future.delayed(const Duration(seconds: 2), () {
-                            setState(() => _isGenerating = false);
-                          });
-                        },
+                        onPressed: _isGenerating ? null : _generatePredictions,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.accentGold,
                           foregroundColor: AppColors.primaryBlue,
@@ -147,6 +197,23 @@ class _FinancialPredictionsScreenState
               SizedBox(height: 24),
 
               if (!_isGenerating) ...[
+                if ((_aiPredictions?['summary'] as String?)?.isNotEmpty ?? false)
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: context.estate.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: AppColors.accentGold.withValues(alpha: 0.4)),
+                    ),
+                    child: Text(
+                      _aiPredictions!['summary'] as String,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: context.estate.textPrimary,
+                      ),
+                    ),
+                  ),
                 // Income Prediction Card
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -196,25 +263,16 @@ class _FinancialPredictionsScreenState
                         ],
                       ),
                       SizedBox(height: 20),
-                      _PredictionItem(
-                        label: AppLocalizations.of(context).firstMonth,
-                        value: "83,000 د.إ",
-                        trend: "+2.5%",
-                        isPositive: true,
-                      ),
-                      SizedBox(height: 12),
-                      _PredictionItem(
-                        label: AppLocalizations.of(context).secondMonth,
-                        value: "85,000 د.إ",
-                        trend: "+2.4%",
-                        isPositive: true,
-                      ),
-                      SizedBox(height: 12),
-                      _PredictionItem(
-                        label: AppLocalizations.of(context).thirdMonth,
-                        value: "87,500 د.إ",
-                        trend: "+2.9%",
-                        isPositive: true,
+                      ..._revenueItems(l10n).map(
+                        (item) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _PredictionItem(
+                            label: item['label'] as String,
+                            value: item['value'] as String,
+                            trend: item['trend'] as String,
+                            isPositive: true,
+                          ),
+                        ),
                       ),
                       SizedBox(height: 16),
                       const Divider(color: AppColors.darkGrey),
@@ -368,7 +426,7 @@ class _FinancialPredictionsScreenState
                       ),
                       SizedBox(height: 12),
                       Text(
-                        "171,500 د.إ",
+                        _formatAed(_aiPredictions?['net_profit'] as num?, fallback: '171,500 د.إ'),
                         style: theme.textTheme.displayMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColors.accentGold,

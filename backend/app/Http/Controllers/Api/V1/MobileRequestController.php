@@ -39,4 +39,32 @@ class MobileRequestController extends Controller
 
         return ApiResponse::success($item->toApiArray(), 'Submitted', 201);
     }
+
+    public function show(MobileRequest $mobileRequest): JsonResponse
+    {
+        return ApiResponse::success($mobileRequest->toApiArray());
+    }
+
+    public function update(Request $request, MobileRequest $mobileRequest): JsonResponse
+    {
+        $data = $request->validate([
+            'type' => ['nullable', 'string', 'max:50'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'max:50'],
+            'payload' => ['nullable', 'array'],
+            'attachments' => ['nullable', 'array'],
+        ]);
+
+        $mobileRequest->update($data);
+
+        return ApiResponse::success($mobileRequest->fresh()->toApiArray(), 'Updated');
+    }
+
+    public function destroy(MobileRequest $mobileRequest): JsonResponse
+    {
+        $mobileRequest->delete();
+
+        return ApiResponse::success(null, 'Deleted');
+    }
 }

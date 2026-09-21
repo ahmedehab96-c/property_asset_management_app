@@ -1,0 +1,28 @@
+export const tenantsResource = {
+  key: 'tenants',
+  endpoint: '/api/v1/tenants',
+  navKey: 'tenants',
+  columns: [
+    { key: 'property_name', label: 'Property' },
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'email', label: 'Email address' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'address', label: 'Address' },
+    { key: 'status', label: 'Status' },
+    { key: 'rent_amount', label: 'Rent amount', sortable: true, numeric: true, currency: true },
+    { key: 'created_at', label: 'Created at', datetime: true, hiddenByDefault: true },
+    { key: 'updated_at', label: 'Updated at', datetime: true, hiddenByDefault: true },
+  ],
+  fields: [
+    { name: 'user_id', label: 'User', type: 'relation-select', endpoint: '/api/v1/users', labelField: 'name' },
+    { name: 'property_id', label: 'Property', type: 'relation-select', endpoint: '/api/v1/properties', labelField: 'name' },
+    { name: 'name', label: 'Name', type: 'text', required: true },
+    { name: 'name_ar', label: 'Name (Arabic)', type: 'text' },
+    { name: 'email', label: 'Email address', type: 'text', inputType: 'email' },
+    { name: 'phone', label: 'Phone', type: 'text', inputType: 'tel' },
+    { name: 'address', label: 'Address', type: 'text' },
+    { name: 'address_ar', label: 'Address (Arabic)', type: 'text' },
+    { name: 'status', label: 'Status', type: 'text', required: true, default: 'active' },
+    { name: 'rent_amount', label: 'Rent amount', type: 'number', required: true, default: 0 },
+  ],
+};

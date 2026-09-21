@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class ImageAnalysisService
 {
+    public function __construct(private readonly GeminiService $gemini) {}
+
     /**
      * @param  list<string>  $paths  Storage paths on the public disk (or absolute paths)
      * @return array{provider: string, overall: string, findings: list<array<string, mixed>>, meta: array<string, mixed>}
@@ -34,10 +34,10 @@ class ImageAnalysisService
             );
         }
 
-        $vision = $this->tryOpenAiVision($paths);
+        $vision = $this->tryGeminiVision($paths);
         if ($vision !== null) {
             return [
-                'provider' => 'openai_vision',
+                'provider' => 'gemini_vision',
                 'overall' => $vision['overall'] ?? $this->overallFromFindings($localFindings),
                 'findings' => $vision['findings'] ?? $localFindings,
                 'meta' => array_merge($meta, ['vision' => true]),
@@ -237,66 +237,33 @@ class ImageAnalysisService
      * @param  list<string>  $paths
      * @return array{overall: string, findings: list<array<string, mixed>>}|null
      */
-    private function tryOpenAiVision(array $paths): ?array
+    private function tryGeminiVision(array $paths): ?array
     {
-        $apiKey = config('services.openai.key') ?: env('OPENAI_API_KEY');
-        if (! $apiKey || $paths === []) {
+        if (! $this->gemini->isConfigured() || $paths === []) {
             return null;
         }
 
-        $base = rtrim((string) (config('services.openai.base_url') ?: env('OPENAI_BASE_URL', 'https://api.openai.com/v1')), '/');
-        $model = (string) (config('services.openai.vision_model') ?: env('OPENAI_VISION_MODEL', 'gpt-4o-mini'));
-
-        $content = [
-            [
-                'type' => 'text',
-                'text' => 'You are a property photo inspector. Return ONLY JSON with keys overall (string) and findings (array of {title, description, severity, recommendation}). Severity must be one of: High, Medium, Low, Good. Focus on condition, cleanliness, lighting, and listing readiness.',
-            ],
-        ];
+        $images = [];
 
         foreach (array_slice($paths, 0, 4) as $path) {
             $absolute = $this->resolvePath($path);
             if (! is_file($absolute)) {
                 continue;
             }
-            $mime = mime_content_type($absolute) ?: 'image/jpeg';
-            $b64 = base64_encode((string) file_get_contents($absolute));
-            $content[] = [
-                'type' => 'image_url',
-                'image_url' => [
-                    'url' => "data:{$mime};base64,{$b64}",
-                ],
+
+            $images[] = [
+                'mime_type' => mime_content_type($absolute) ?: 'image/jpeg',
+                'data' => base64_encode((string) file_get_contents($absolute)),
             ];
         }
 
-        if (count($content) < 2) {
+        if ($images === []) {
             return null;
         }
 
-        try {
-            $response = Http::withToken($apiKey)
-                ->timeout(45)
-                ->post("{$base}/chat/completions", [
-                    'model' => $model,
-                    'response_format' => ['type' => 'json_object'],
-                    'messages' => [
-                        ['role' => 'user', 'content' => $content],
-                    ],
-                ]);
-        } catch (ConnectionException) {
-            return null;
-        }
+        $prompt = 'You are a property photo inspector. Return ONLY JSON with keys overall (string) and findings (array of {title, description, severity, recommendation}). Severity must be one of: High, Medium, Low, Good. Focus on condition, cleanliness, lighting, and listing readiness.';
 
-        if (! $response->successful()) {
-            return null;
-        }
-
-        $raw = data_get($response->json(), 'choices.0.message.content');
-        if (! is_string($raw)) {
-            return null;
-        }
-
-        $decoded = json_decode($raw, true);
+        $decoded = $this->gemini->analyzeImages($prompt, $images);
         if (! is_array($decoded)) {
             return null;
         }
@@ -305,7 +272,7 @@ class ImageAnalysisService
             'overall' => (string) ($decoded['overall'] ?? 'Vision analysis completed'),
             'findings' => array_values(array_filter(
                 $decoded['findings'] ?? [],
-                fn ($f) => is_array($f)
+                fn ($finding) => is_array($finding)
             )),
         ];
     }

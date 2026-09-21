@@ -37,7 +37,9 @@ class ProjectController extends Controller
             'owner_id' => ['nullable', 'exists:owners,id'],
             'property_id' => ['nullable', 'exists:properties,id'],
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
+            'location_ar' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:50'],
             'progress' => ['nullable', 'numeric'],
             'budget' => ['nullable', 'numeric'],
@@ -45,6 +47,7 @@ class ProjectController extends Controller
             'start_date' => ['nullable', 'date'],
             'end_date' => ['nullable', 'date'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
         ]);
 
         $project = Project::query()->create($data);
@@ -63,7 +66,9 @@ class ProjectController extends Controller
             'owner_id' => ['nullable', 'exists:owners,id'],
             'property_id' => ['nullable', 'exists:properties,id'],
             'name' => ['sometimes', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
+            'location_ar' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:50'],
             'progress' => ['nullable', 'numeric'],
             'budget' => ['nullable', 'numeric'],
@@ -71,6 +76,7 @@ class ProjectController extends Controller
             'start_date' => ['nullable', 'date'],
             'end_date' => ['nullable', 'date'],
             'description' => ['nullable', 'string'],
+            'description_ar' => ['nullable', 'string'],
         ]);
 
         $project->update($data);

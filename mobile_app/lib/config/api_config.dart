@@ -95,6 +95,13 @@ class ApiConfig {
   static const String analyticsOccupancy = '/analytics/occupancy';
   static const String analyticsImageAnalysis = '/analytics/image-analysis';
 
+  // AI (server-side Gemini)
+  static const String aiStatus = '/ai/status';
+  static const String aiChat = '/ai/chat';
+  static const String aiMarketAnalysis = '/ai/market-analysis';
+  static const String aiTenantAnalysis = '/ai/tenant-analysis';
+  static const String aiFinancialPredictions = '/ai/financial-predictions';
+
   // Mobile app requests
   static const String mobileRequests = '/mobile-requests';
   
@@ -146,6 +153,7 @@ class ApiConfig {
   // Request timeout
   static const Duration connectTimeout = Duration(seconds: 30);
   static const Duration receiveTimeout = Duration(seconds: 30);
+  static const Duration aiReceiveTimeout = Duration(seconds: 90);
   
   // Headers
   static Map<String, String> getHeaders(String? token) {

@@ -13,7 +13,7 @@ RUN mkdir -p backend/public && cd admin-dashboard && npm run build
 FROM composer:2 AS composer-build
 WORKDIR /app
 COPY backend/composer.json backend/composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction --ignore-platform-reqs
 COPY backend ./
 RUN composer dump-autoload --optimize --no-dev
 

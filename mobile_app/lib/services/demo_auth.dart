@@ -6,9 +6,9 @@ class DemoAuth {
   DemoAuth._();
 
   static const ownerEmail = 'demo@demo.com';
-  static const ownerPassword = 'Demo@12345';
+  static const ownerPassword = 'password';
   static const adminEmail = 'admin@demo.com';
-  static const adminPassword = 'Admin@12345';
+  static const adminPassword = 'password';
 
   static const ownerNameAr = 'مستخدم تجريبي';
   static const ownerNameEn = 'Demo User';

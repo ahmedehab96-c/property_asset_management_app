@@ -18,7 +18,7 @@ COPY backend ./
 RUN composer dump-autoload --optimize --no-dev
 
 # ---- 3. Runtime image ----
-FROM php:8.3-apache AS runtime
+FROM php:8.4-apache AS runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev \

@@ -22,7 +22,7 @@ FROM php:8.3-apache AS runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev \
-        libpq-dev sqlite3 libsqlite3-dev unzip git \
+        libpq-dev sqlite3 libsqlite3-dev libonig-dev unzip git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql pdo_pgsql pdo_sqlite mbstring exif pcntl bcmath gd intl zip opcache \

@@ -12,6 +12,26 @@
 
 > لوحة الأدمن الأصلية (Filament) لسه شغالة على `/admin`. لوحة الـ React الجديدة على `/dashboard` بتغطي نفس الأقسام وبتكلم نفس الـ API.
 
+## جرّبه مباشرة (Try it live)
+
+**العرض الحي — لوحة الأدمن (Web demo)**
+رابط: https://property-asset-mgmt-api.onrender.com/dashboard/
+حساب تجريبي: `admin@demo.com` / `password`
+ملاحظة: أول طلب بعد فترة خمول قد يأخذ 30-60 ثانية (استضافة مجانية).
+
+**تطبيق الموبايل (Android APK)**
+حساب المالك/المستأجر التجريبي: `demo@demo.com` / `password` (أو زر "Fill demo" بشاشة الدخول)
+
+---
+
+**Live demo — admin dashboard (Web demo)**
+URL: https://property-asset-mgmt-api.onrender.com/dashboard/
+Demo account: `admin@demo.com` / `password`
+Note: the first request after idle may take 30-60s to wake up (free-tier hosting).
+
+**Mobile app (Android APK)**
+Demo owner/tenant account: `demo@demo.com` / `password` (or tap "Fill demo" on the login screen)
+
 ## البدء السريع
 
 ### 1) الباكند (Laravel)

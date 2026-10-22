@@ -234,10 +234,10 @@ export function fieldHint(hint, locale) {
 }
 
 export const occupancyStatusColors = {
-  occupied: '#3D8B7A',
-  available: '#C9A227',
-  under_construction: '#2563EB',
-  maintenance: '#B87333',
+  occupied: '#2E8B6F',
+  available: '#C68A2E',
+  under_construction: '#1F5C8B',
+  maintenance: '#B2592E',
 };
 
 export const occupancyStatusLabels = {

@@ -814,7 +814,7 @@ class _PreviousRequestCard extends StatelessWidget {
           ),
         ),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
+          color: context.estate.border,
           width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
         ),
       ),

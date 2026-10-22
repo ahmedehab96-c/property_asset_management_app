@@ -197,12 +197,12 @@ class _GlassCard extends StatelessWidget {
               end: Alignment.bottomRight,
               colors: [
                 AppColors.primaryBlue.withValues(alpha: 0.7),
-                AppColors.navy.withValues(alpha: 0.5),
+                context.estate.surfaceElevated.withValues(alpha: 0.5),
               ],
             ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.estate.border,
               width: 1.5,
             ),
           ),
@@ -269,13 +269,13 @@ class _DataCard extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                AppColors.cardDark.withValues(alpha: 0.8),
-                AppColors.navy.withValues(alpha: 0.6),
+                context.estate.surface.withValues(alpha: 0.8),
+                context.estate.surfaceElevated.withValues(alpha: 0.6),
               ],
             ),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.estate.border,
               width: 1,
             ),
           ),

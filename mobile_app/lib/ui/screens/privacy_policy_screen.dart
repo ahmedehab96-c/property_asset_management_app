@@ -133,7 +133,7 @@ class _Section extends StatelessWidget {
           ResponsiveHelper.getResponsiveBorderRadius(context),
         ),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
+          color: context.estate.border,
           width: 1,
         ),
       ),

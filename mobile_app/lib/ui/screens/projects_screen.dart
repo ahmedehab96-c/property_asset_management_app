@@ -250,7 +250,7 @@ class _ProjectCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.estate.border,
               width: 1.5,
             ),
             boxShadow: [
@@ -306,7 +306,7 @@ class _ProjectCard extends StatelessWidget {
                     end: Alignment.bottomRight,
                     colors: [
                       AppColors.primaryBlue.withValues(alpha: 0.7),
-                      AppColors.navy.withValues(alpha: 0.5),
+                      context.estate.surfaceElevated.withValues(alpha: 0.5),
                     ],
                   ),
                   borderRadius: project['imagePath'] != null

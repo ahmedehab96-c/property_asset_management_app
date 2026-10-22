@@ -485,19 +485,19 @@ class _PropertyCardState extends State<_PropertyCard> with SingleTickerProviderS
                   end: Alignment.bottomRight,
                   colors: _isPressed
                       ? [
-                          AppColors.cardDark.withValues(alpha: 0.95),
-                          AppColors.navy.withValues(alpha: 0.85),
+                          context.estate.surface.withValues(alpha: 0.95),
+                          context.estate.surfaceElevated.withValues(alpha: 0.85),
                         ]
                       : [
                           AppColors.cardDark,
-                          AppColors.cardDark.withValues(alpha: 0.9),
+                          context.estate.surface.withValues(alpha: 0.9),
                         ],
                 ),
                 borderRadius: BorderRadius.circular(borderRadius),
                 border: Border.all(
                   color: _isPressed
                       ? AppColors.accentGold.withValues(alpha: 0.4)
-                      : Colors.white.withValues(alpha: 0.1),
+                      : context.estate.border,
                   width: _isPressed ? 2 : 1,
                 ),
                 boxShadow: [

@@ -551,7 +551,7 @@ class _GlassCard extends StatelessWidget {
               end: Alignment.bottomRight,
               colors: [
                 AppColors.primaryBlue.withValues(alpha: 0.8),
-                AppColors.navy.withValues(alpha: 0.6),
+                context.estate.surfaceElevated.withValues(alpha: 0.6),
               ],
             ),
             borderRadius: BorderRadius.circular(24),
@@ -605,13 +605,13 @@ class _QuickStatCard extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                AppColors.cardDark.withValues(alpha: 0.8),
-                AppColors.navy.withValues(alpha: 0.6),
+                context.estate.surface.withValues(alpha: 0.8),
+                context.estate.surfaceElevated.withValues(alpha: 0.6),
               ],
             ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.estate.border,
               width: 1.5,
         ),
       ),
@@ -714,12 +714,12 @@ class _TransactionCardState extends State<_TransactionCard>
                   end: Alignment.bottomRight,
                   colors: _isPressed
                       ? [
-                          AppColors.cardDark.withValues(alpha: 0.9),
-                          AppColors.navy.withValues(alpha: 0.7),
+                          context.estate.surface.withValues(alpha: 0.9),
+                          context.estate.surfaceElevated.withValues(alpha: 0.7),
                         ]
                       : [
-                          AppColors.cardDark.withValues(alpha: 0.8),
-                          AppColors.navy.withValues(alpha: 0.6),
+                          context.estate.surface.withValues(alpha: 0.8),
+                          context.estate.surfaceElevated.withValues(alpha: 0.6),
                         ],
                 ),
                 borderRadius: BorderRadius.circular(18),
@@ -729,7 +729,7 @@ class _TransactionCardState extends State<_TransactionCard>
                           ? Colors.greenAccent
                           : Colors.redAccent)
                           .withValues(alpha: 0.3)
-                      : Colors.white.withValues(alpha: 0.1),
+                      : context.estate.border,
                   width: _isPressed ? 1.5 : 1,
                 ),
                 boxShadow: _isPressed

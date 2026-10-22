@@ -3,33 +3,33 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// ألوان العلامة الثابتة — لا تتغير بين الفاتح والداكن.
 class AppColors {
-  static const Color primary = Color(0xFF2563EB);
-  static const Color primaryBlue = Color(0xFF1D4ED8);
-  static const Color royalBlue = Color(0xFF1E40AF);
-  static const Color navy = Color(0xFF1E3A5F);
+  static const Color primary = Color(0xFF1F5C8B);
+  static const Color primaryBlue = Color(0xFF184A70);
+  static const Color royalBlue = Color(0xFF123A5A);
+  static const Color navy = Color(0xFF15324A);
 
-  static const Color teal = Color(0xFF3D8B7A);
-  static const Color emerald = Color(0xFF2D9B6E);
-  static const Color darkGreen = Color(0xFF1F4D3A);
-  static const Color lightGreen = Color(0xFF5CB88A);
+  static const Color teal = Color(0xFF2E8B6F);
+  static const Color emerald = Color(0xFF22815A);
+  static const Color darkGreen = Color(0xFF1B3F2F);
+  static const Color lightGreen = Color(0xFF63B98C);
 
-  static const Color violet = Color(0xFF4A6FA5);
-  static const Color accentGold = Color(0xFFC9A227);
-  static const Color gold = Color(0xFFD4AF37);
-  static const Color terracotta = Color(0xFFB87333);
+  static const Color violet = Color(0xFF52678F);
+  static const Color accentGold = Color(0xFFC68A2E);
+  static const Color gold = Color(0xFFD1A23E);
+  static const Color terracotta = Color(0xFFB2592E);
 
   // ─── داكن (للتوافق مع الكود القديم) ─────────────────────────────────────
-  static const Color ink = Color(0xFF0C1014);
-  static const Color midnight = Color(0xFF0F1C28);
-  static const Color deepOcean = Color(0xFF152838);
-  static const Color tealDeep = Color(0xFF1A2820);
-  static const Color background = Color(0xFF0C1014);
-  static const Color cardDark = Color(0xFF161E26);
-  static const Color surfaceElevated = Color(0xFF1E2A34);
-  static const Color stone = Color(0xFF2A343E);
-  static const Color white = Color(0xFFF5F7FA);
-  static const Color grey = Color(0xFF94A3B8);
-  static const Color darkGrey = Color(0xFF64748B);
+  static const Color ink = Color(0xFF0D1210);
+  static const Color midnight = Color(0xFF101D29);
+  static const Color deepOcean = Color(0xFF16293A);
+  static const Color tealDeep = Color(0xFF1C2B22);
+  static const Color background = Color(0xFF0D1210);
+  static const Color cardDark = Color(0xFF242F3B);
+  static const Color surfaceElevated = Color(0xFF2B3744);
+  static const Color stone = Color(0xFF36414D);
+  static const Color white = Color(0xFFF6F4EF);
+  static const Color grey = Color(0xFFB4BCC2);
+  static const Color darkGrey = Color(0xFF7B8087);
 
   static Color get cardTransparent => cardDark.withValues(alpha: 0.55);
   static Color get cardSemiTransparent => cardDark.withValues(alpha: 0.8);
@@ -44,12 +44,12 @@ class AppColors {
   static Color get orbAccent => orbGold;
 
   // ─── فاتح ───────────────────────────────────────────────────────────────
-  static const Color lightInk = Color(0xFF0F172A);
-  static const Color lightBackground = Color(0xFFF4F7FA);
+  static const Color lightInk = Color(0xFF1C2B3A);
+  static const Color lightBackground = Color(0xFFF7F4EE);
   static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color lightSurfaceElevated = Color(0xFFF8FAFC);
-  static const Color lightGrey = Color(0xFF64748B);
-  static const Color lightBorder = Color(0x1A0F172A);
+  static const Color lightSurfaceElevated = Color(0xFFFBF9F5);
+  static const Color lightGrey = Color(0xFF6B6F76);
+  static const Color lightBorder = Color(0x1A1C2B3A);
 }
 
 /// ألوان دلالية حسب المظهر — استخدم `context.estate` في الواجهات.
@@ -97,38 +97,38 @@ class EstateColors extends ThemeExtension<EstateColors> {
 
   static const light = EstateColors(
     pageGradient: [
-      Color(0xFFFBFCFE),
-      Color(0xFFEEF3FF),
-      Color(0xFFE6F4F0),
-      Color(0xFFF8F1E4),
-      Color(0xFFEFF3F8),
-      Color(0xFFF7FAFD),
+      Color(0xFFFBFAF6),
+      Color(0xFFEEF1F7),
+      Color(0xFFE7F5F0),
+      Color(0xFFF9F1E2),
+      Color(0xFFF1F0EC),
+      Color(0xFFF8F6F1),
     ],
     pageGradientStops: [0.0, 0.2, 0.42, 0.64, 0.84, 1.0],
-    background: Color(0xFFF5F8FC),
+    background: Color(0xFFF7F4EE),
     surface: Color(0xFAFFFFFF),
-    surfaceElevated: Color(0xFFF8FAFC),
+    surfaceElevated: Color(0xFFFBF9F5),
     surfaceGlass: Color(0xCCFFFFFF),
     surfaceGlassLight: Color(0x80FFFFFF),
     textPrimary: AppColors.lightInk,
     textSecondary: AppColors.lightGrey,
-    border: Color(0x120F172A),
+    border: Color(0x1F1C2B3A),
     appBarGlass: Color(0xB3FFFFFF),
-    orbSky: Color(0x3D2563EB),
-    orbGarden: Color(0x333D8B7A),
-    orbGold: Color(0x36C9A227),
-    orbBrick: Color(0x24B87333),
+    orbSky: Color(0x3D1F5C8B),
+    orbGarden: Color(0x332E8B6F),
+    orbGold: Color(0x36C68A2E),
+    orbBrick: Color(0x24B2592E),
     sidebarGradient: [
-      Color(0xF5F9FBFD),
-      Color(0xF0EEF4FF),
-      Color(0xEBE8F5F1),
+      Color(0xF5FAF8F4),
+      Color(0xF0EEF1F7),
+      Color(0xEBE9F5F0),
     ],
     glassCardColors: [
       Color(0xE6FFFFFF),
-      Color(0xCCF8FAFC),
-      Color(0x99F0FDF9),
+      Color(0xCCFBF9F5),
+      Color(0x99EFFBF4),
     ],
-    shadow: Color(0x100F172A),
+    shadow: Color(0x101C2B3A),
   );
 
   static const dark = EstateColors(
@@ -142,27 +142,27 @@ class EstateColors extends ThemeExtension<EstateColors> {
     ],
     pageGradientStops: [0.0, 0.18, 0.4, 0.62, 0.82, 1.0],
     background: Color(0xFF080B10),
-    surface: Color(0xE6161E26),
-    surfaceElevated: Color(0xFF1A2430),
-    surfaceGlass: Color(0x73161E26),
-    surfaceGlassLight: Color(0x40161E26),
+    surface: Color(0xE6242F3B),
+    surfaceElevated: Color(0xFF2B3744),
+    surfaceGlass: Color(0x80242F3B),
+    surfaceGlassLight: Color(0x4D242F3B),
     textPrimary: AppColors.white,
     textSecondary: AppColors.grey,
-    border: Color(0x0FFFFFFF),
-    appBarGlass: Color(0x66161E26),
-    orbSky: Color(0x3D2563EB),
-    orbGarden: Color(0x303D8B7A),
-    orbGold: Color(0x2EC9A227),
-    orbBrick: Color(0x20B87333),
+    border: Color(0x24FFFFFF),
+    appBarGlass: Color(0x75242F3B),
+    orbSky: Color(0x3D1F5C8B),
+    orbGarden: Color(0x302E8B6F),
+    orbGold: Color(0x2EC68A2E),
+    orbBrick: Color(0x20B2592E),
     sidebarGradient: [
       Color(0xE6080B10),
       Color(0xF00D1520),
       Color(0xE6122030),
     ],
     glassCardColors: [
-      Color(0x99161E26),
-      Color(0x661E2A34),
-      Color(0x401A2820),
+      Color(0xB3242F3B),
+      Color(0x802B3744),
+      Color(0x401C2B22),
     ],
     shadow: Color(0x55080B10),
   );

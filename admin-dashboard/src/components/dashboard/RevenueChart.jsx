@@ -21,8 +21,8 @@ export default function RevenueChart({ months }) {
       {
         label: 'AED',
         data: months.map((m) => m.amount),
-        borderColor: '#2563EB',
-        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+        borderColor: '#1F5C8B',
+        backgroundColor: 'rgba(31, 92, 139, 0.2)',
         tension: 0.35,
         fill: true,
       },
@@ -35,7 +35,7 @@ export default function RevenueChart({ months }) {
     plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false } },
-      y: { grid: { color: 'rgba(15, 23, 42, 0.06)' } },
+      y: { grid: { color: 'rgba(28, 43, 58, 0.06)' } },
     },
   };
 

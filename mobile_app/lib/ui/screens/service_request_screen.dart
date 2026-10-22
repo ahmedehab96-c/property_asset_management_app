@@ -283,7 +283,7 @@ class _ServiceRequestScreenState extends ConsumerState<ServiceRequestScreen> {
                       ),
                     ),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.1),
+                      color: context.estate.border,
                       width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
                     ),
                   ),
@@ -708,7 +708,7 @@ class _ServiceRequestScreenState extends ConsumerState<ServiceRequestScreen> {
                         ),
                       ),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.1),
+                        color: context.estate.border,
                         width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
                       ),
                     ),
@@ -963,7 +963,7 @@ class _PriorityButton extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          color: isSelected ? color : AppColors.cardDark.withValues(alpha: 0.6),
+          color: isSelected ? color : context.estate.surface.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(
             ResponsiveHelper.getResponsiveBorderRadius(
               context,

@@ -255,7 +255,7 @@ class _FileLawsuitScreenState extends State<FileLawsuitScreen> {
                               },
                               activeColor: AppColors.accentGold,
                               tileColor:
-                                  AppColors.cardDark.withValues(alpha: 0.5),
+                                  context.estate.surface.withValues(alpha: 0.5),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -301,7 +301,7 @@ class _FileLawsuitScreenState extends State<FileLawsuitScreen> {
                             hintStyle:
                                 TextStyle(color: context.estate.textSecondary),
                             filled: true,
-                            fillColor: AppColors.cardDark.withValues(alpha: 0.5),
+                            fillColor: context.estate.surface.withValues(alpha: 0.5),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(

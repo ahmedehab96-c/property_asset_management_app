@@ -240,7 +240,7 @@ class _ExtendContractScreenState extends State<ExtendContractScreen> {
                           hintText: l10n.extendContractNotesHint,
                           hintStyle: TextStyle(color: context.estate.textSecondary),
                           filled: true,
-                          fillColor: AppColors.cardDark.withValues(alpha: 0.5),
+                          fillColor: context.estate.surface.withValues(alpha: 0.5),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.2)),

@@ -219,7 +219,7 @@ class _CancelContractScreenState extends State<CancelContractScreen> {
                             // ignore: deprecated_member_use
                             onChanged: (value) => setState(() => _selectedReasonKey = value),
                             activeColor: AppColors.accentGold,
-                            tileColor: AppColors.cardDark.withValues(alpha: 0.5),
+                            tileColor: context.estate.surface.withValues(alpha: 0.5),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
                         ),
@@ -241,7 +241,7 @@ class _CancelContractScreenState extends State<CancelContractScreen> {
                           hintText: l10n.addAdditionalDetailsHint,
                           hintStyle: TextStyle(color: context.estate.textSecondary),
                           filled: true,
-                          fillColor: AppColors.cardDark.withValues(alpha: 0.5),
+                          fillColor: context.estate.surface.withValues(alpha: 0.5),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.2)),

@@ -288,7 +288,7 @@ class _NotificationSwitch extends StatelessWidget {
         color: context.estate.surface.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
+          color: context.estate.border,
           width: 1,
         ),
       ),

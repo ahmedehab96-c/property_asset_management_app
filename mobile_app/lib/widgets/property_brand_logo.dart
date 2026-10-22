@@ -133,9 +133,9 @@ class _EstateBrandMark extends StatelessWidget {
                           Color(0xFF1A3348),
                         ]
                       : const [
-                          Color(0xFF1E3A5F),
-                          Color(0xFF2563EB),
-                          Color(0xFF1A4A6E),
+                          Color(0xFF15324A),
+                          Color(0xFF1F5C8B),
+                          Color(0xFF184A70),
                         ],
                 ),
               ),

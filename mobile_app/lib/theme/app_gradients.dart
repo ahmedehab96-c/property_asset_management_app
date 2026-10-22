@@ -44,7 +44,7 @@ class AppGradients {
     colors: [
       Color(0x22FFFFFF),
       Color(0x05FFFFFF),
-      Color(0x0CC9A227),
+      Color(0x0CC68A2E),
     ],
     stops: [0.0, 0.55, 1.0],
   );
@@ -52,7 +52,7 @@ class AppGradients {
   static const LinearGradient goldButton = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [AppColors.accentGold, AppColors.gold, Color(0xFFB8941F)],
+    colors: [AppColors.accentGold, AppColors.gold, Color(0xFFA6761F)],
     stops: [0.0, 0.45, 1.0],
   );
 

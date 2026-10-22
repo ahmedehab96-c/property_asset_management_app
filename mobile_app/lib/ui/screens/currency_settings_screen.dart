@@ -97,12 +97,12 @@ class _CurrencySettingsScreenState extends State<CurrencySettingsScreen> {
                     decoration: BoxDecoration(
                       color: isSelected
                           ? AppColors.accentGold.withValues(alpha: 0.2)
-                          : AppColors.cardDark.withValues(alpha: 0.6),
+                          : context.estate.surface.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(borderRadius),
                       border: Border.all(
                         color: isSelected
                             ? AppColors.accentGold
-                            : Colors.white.withValues(alpha: 0.1),
+                            : context.estate.border,
                         width: isSelected ? 2 : 1,
                       ),
                     ),

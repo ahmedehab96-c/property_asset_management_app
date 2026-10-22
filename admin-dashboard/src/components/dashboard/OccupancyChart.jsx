@@ -10,14 +10,14 @@ export default function OccupancyChart({ byStatus }) {
   const statuses = Object.keys(byStatus);
   const labels = statuses.map((s) => occupancyStatusLabels[locale][s] ?? s);
   const values = statuses.map((s) => byStatus[s]);
-  const colors = statuses.map((s) => occupancyStatusColors[s] ?? '#4A6FA5');
+  const colors = statuses.map((s) => occupancyStatusColors[s] ?? '#52678F');
 
   const data = {
     labels: labels.length ? labels : ['—'],
     datasets: [
       {
         data: values.length ? values : [1],
-        backgroundColor: colors.length ? colors : ['#64748B'],
+        backgroundColor: colors.length ? colors : ['#6B6F76'],
       },
     ],
   };

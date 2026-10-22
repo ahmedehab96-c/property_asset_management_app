@@ -196,7 +196,7 @@ class _ContractsScreenState extends ConsumerState<ContractsScreen> {
                         ),
                       ),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.1),
+                        color: context.estate.border,
                         width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
                       ),
                     ),
@@ -420,7 +420,7 @@ class _FilterTab extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColors.accentGold.withValues(alpha: 0.2)
-              : AppColors.cardDark.withValues(alpha: 0.4),
+              : context.estate.surface.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(
             ResponsiveHelper.getResponsiveBorderRadius(
               context,
@@ -432,7 +432,7 @@ class _FilterTab extends StatelessWidget {
           border: Border.all(
             color: isSelected
                 ? AppColors.accentGold
-                : Colors.white.withValues(alpha: 0.1),
+                : context.estate.border,
             width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
           ),
         ),
@@ -546,7 +546,7 @@ class _ContractCard extends StatelessWidget {
           color: context.estate.surface.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.estate.border,
             width: ResponsiveHelper.isMobile(context) ? 1 : 1.5,
               ),
           ),

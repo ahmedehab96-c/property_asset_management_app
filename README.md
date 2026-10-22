@@ -14,23 +14,29 @@
 
 ## جرّبه مباشرة (Try it live)
 
-**العرض الحي — لوحة الأدمن (Web demo)**
-رابط: https://property-asset-mgmt-api.onrender.com/dashboard/
-حساب تجريبي: `admin@demo.com` / `password`
-ملاحظة: أول طلب بعد فترة خمول قد يأخذ 30-60 ثانية (استضافة مجانية).
+### 🖥️ لوحة الأدمن (الويب)
+1. افتح الرابط: https://property-asset-mgmt-api.onrender.com/dashboard/
+2. سجّل الدخول بحساب الأدمن التجريبي — البريد: `admin@demo.com` — كلمة المرور: `password`
+3. ملاحظة: أول طلب بعد فترة خمول قد يأخذ 30-60 ثانية (استضافة مجانية).
 
-**تطبيق الموبايل (Android APK)**
-حساب المالك/المستأجر التجريبي: `demo@demo.com` / `password` (أو زر "Fill demo" بشاشة الدخول)
+### 📱 تطبيق الموبايل
+1. شغّله محلياً (قسم [البدء السريع](#2-تطبيق-الموبايل-flutter) تحت) — لا يوجد APK جاهز للتحميل حالياً.
+2. بشاشة الدخول اضغط زر "تعبئة بيانات تجريبية" (Fill demo)، أو أدخل يدوياً — البريد: `demo@demo.com` — كلمة المرور: `password` (حساب مالك/مستأجر).
+
+> نفس حسابات التجربة (`admin@demo.com` و`demo@demo.com`، كلمة المرور `password` للاثنين) مُجهّزة تلقائياً عبر الـ seeder — تقدر تعيد توليدها محلياً بـ `php artisan db:seed`.
 
 ---
 
-**Live demo — admin dashboard (Web demo)**
-URL: https://property-asset-mgmt-api.onrender.com/dashboard/
-Demo account: `admin@demo.com` / `password`
-Note: the first request after idle may take 30-60s to wake up (free-tier hosting).
+### 🖥️ Admin dashboard (web)
+1. Open: https://property-asset-mgmt-api.onrender.com/dashboard/
+2. Log in with the demo admin account — email: `admin@demo.com` — password: `password`
+3. Note: the first request after idle may take 30-60s to wake up (free-tier hosting).
 
-**Mobile app (Android APK)**
-Demo owner/tenant account: `demo@demo.com` / `password` (or tap "Fill demo" on the login screen)
+### 📱 Mobile app
+1. Run it locally (see [Quick start](#2-تطبيق-الموبايل-flutter) below) — no pre-built APK is published yet.
+2. On the login screen tap "Fill demo", or enter manually — email: `demo@demo.com` — password: `password` (owner/tenant account).
+
+> Both demo accounts (`admin@demo.com` and `demo@demo.com`, password `password` for both) are seeded automatically — regenerate them locally with `php artisan db:seed`.
 
 ## البدء السريع
 

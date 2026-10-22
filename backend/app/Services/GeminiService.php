@@ -39,33 +39,47 @@ class GeminiService
             $payload['generationConfig'] = $generationConfig;
         }
 
-        $url = sprintf(
-            '%s/models/%s:generateContent?key=%s',
-            $this->baseUrl(),
-            $this->model(),
-            urlencode((string) config('services.gemini.key'))
-        );
-
-        try {
-            $response = Http::timeout(60)->post($url, $payload);
-        } catch (ConnectionException $exception) {
-            Log::warning('Gemini connection failed', ['error' => $exception->getMessage()]);
-
+        $json = $this->post($payload);
+        if ($json === null) {
             return null;
         }
 
-        if (! $response->successful()) {
-            Log::warning('Gemini API error', [
-                'status' => $response->status(),
-                'body' => $response->body(),
-            ]);
-
-            return null;
-        }
-
-        $text = data_get($response->json(), 'candidates.0.content.parts.0.text');
+        $text = data_get($json, 'candidates.0.content.parts.0.text');
 
         return is_string($text) && trim($text) !== '' ? trim($text) : null;
+    }
+
+    /**
+     * One function-calling turn. Returns the first candidate's content parts
+     * (text and/or functionCall entries), or null when the provider fails.
+     *
+     * @param  list<array{role: string, parts: list<array<string, mixed>>}>  $contents
+     * @param  list<array<string, mixed>>  $functionDeclarations
+     * @return list<array<string, mixed>>|null
+     */
+    public function generateWithTools(
+        array $contents,
+        string $systemInstruction,
+        array $functionDeclarations,
+        array $generationConfig = [],
+    ): ?array {
+        if (! $this->isConfigured() || $contents === []) {
+            return null;
+        }
+
+        $payload = [
+            'contents' => $contents,
+            'systemInstruction' => ['parts' => [['text' => $systemInstruction]]],
+            'tools' => [['functionDeclarations' => $functionDeclarations]],
+        ];
+
+        if ($generationConfig !== []) {
+            $payload['generationConfig'] = $generationConfig;
+        }
+
+        $parts = data_get($this->post($payload), 'candidates.0.content.parts');
+
+        return is_array($parts) && $parts !== [] ? array_values($parts) : null;
     }
 
     /**
@@ -162,6 +176,37 @@ class GeminiService
         $decoded = json_decode($raw, true);
 
         return is_array($decoded) ? $decoded : null;
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>|null
+     */
+    private function post(array $payload): ?array
+    {
+        $url = sprintf('%s/models/%s:generateContent', $this->baseUrl(), $this->model());
+
+        try {
+            // Key goes in a header, not the query string, so it never lands in logged URLs.
+            $response = Http::timeout((int) config('services.gemini.timeout', 60))
+                ->withHeaders(['x-goog-api-key' => (string) config('services.gemini.key')])
+                ->post($url, $payload);
+        } catch (ConnectionException $exception) {
+            Log::warning('Gemini connection failed', ['error' => $exception->getMessage()]);
+
+            return null;
+        }
+
+        if (! $response->successful()) {
+            // Body is not logged: it can echo user content back.
+            Log::warning('Gemini API error', ['status' => $response->status()]);
+
+            return null;
+        }
+
+        $json = $response->json();
+
+        return is_array($json) ? $json : null;
     }
 
     private function model(): string

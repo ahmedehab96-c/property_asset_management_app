@@ -101,6 +101,11 @@ class ApiConfig {
   static const String aiMarketAnalysis = '/ai/market-analysis';
   static const String aiTenantAnalysis = '/ai/tenant-analysis';
   static const String aiFinancialPredictions = '/ai/financial-predictions';
+  static const String aiAgentChat = '/ai/agent/chat';
+  static const String aiAgentConversations = '/ai/agent/conversations';
+  static String aiAgentConversation(int id) => '/ai/agent/conversations/$id';
+  static String aiAgentConfirm(int id) => '/ai/agent/actions/$id/confirm';
+  static String aiAgentCancel(int id) => '/ai/agent/actions/$id/cancel';
 
   // Mobile app requests
   static const String mobileRequests = '/mobile-requests';

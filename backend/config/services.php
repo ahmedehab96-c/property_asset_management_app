@@ -46,6 +46,15 @@ return [
         'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
         'model' => env('GEMINI_MODEL', 'gemini-2.0-flash'),
         'temperature' => (float) env('GEMINI_TEMPERATURE', 0.7),
+        'timeout' => (int) env('GEMINI_TIMEOUT', 60),
+        'agent' => [
+            'max_steps' => (int) env('AI_AGENT_MAX_STEPS', 4),
+            'max_output_tokens' => (int) env('AI_AGENT_MAX_OUTPUT_TOKENS', 1024),
+            'history_messages' => (int) env('AI_AGENT_HISTORY_MESSAGES', 12),
+            'per_minute' => (int) env('AI_AGENT_PER_MINUTE', 10),
+            'per_day' => (int) env('AI_AGENT_PER_DAY', 200),
+            'action_ttl_minutes' => (int) env('AI_AGENT_ACTION_TTL_MINUTES', 30),
+        ],
     ],
 
 ];

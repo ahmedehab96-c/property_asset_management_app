@@ -475,6 +475,23 @@ class AppLocalizations {
       // AI Assistant Screen
       'smart_assistant': 'المساعد الذكي',
       'ai_welcome_message': 'مرحباً! أنا مساعدك الذكي لإدارة العقارات. كيف يمكنني مساعدتك اليوم؟',
+      'ai_confirm': 'تأكيد',
+      'ai_cancel': 'إلغاء',
+      'ai_retry': 'إعادة المحاولة',
+      'ai_new_chat': 'محادثة جديدة',
+      'ai_needs_confirmation': 'إجراء بانتظار تأكيدك',
+      'ai_action_completed': 'تم',
+      'ai_action_failed': 'فشل',
+      'ai_action_pending': 'بانتظار التأكيد',
+      'ai_action_cancelled': 'أُلغي',
+      'ai_error_generic': 'تعذّر الوصول إلى المساعد. تحقق من الاتصال وحاول مجدداً.',
+      'ai_tool_get_portfolio_summary': 'ملخص المحفظة',
+      'ai_tool_search_properties': 'بحث العقارات',
+      'ai_tool_search_tenants': 'بحث المستأجرين',
+      'ai_tool_list_contracts': 'العقود',
+      'ai_tool_list_payments': 'المدفوعات',
+      'ai_tool_list_maintenance_requests': 'طلبات الصيانة',
+      'ai_tool_create_maintenance_request': 'إنشاء طلب صيانة',
       'quick_actions': 'أوامر سريعة',
       'write_rental_contract': 'اكتب عقد إيجار',
       'write_property_ad': 'اكتب إعلان عقار',
@@ -1367,6 +1384,23 @@ class AppLocalizations {
       // AI Assistant Screen
       'smart_assistant': 'Smart Assistant',
       'ai_welcome_message': 'Hello! I am your smart property management assistant. How can I help you today?',
+      'ai_confirm': 'Confirm',
+      'ai_cancel': 'Cancel',
+      'ai_retry': 'Retry',
+      'ai_new_chat': 'New chat',
+      'ai_needs_confirmation': 'Action awaiting your confirmation',
+      'ai_action_completed': 'Done',
+      'ai_action_failed': 'Failed',
+      'ai_action_pending': 'Awaiting confirmation',
+      'ai_action_cancelled': 'Cancelled',
+      'ai_error_generic': 'Could not reach the assistant. Check your connection and try again.',
+      'ai_tool_get_portfolio_summary': 'Portfolio summary',
+      'ai_tool_search_properties': 'Property search',
+      'ai_tool_search_tenants': 'Tenant search',
+      'ai_tool_list_contracts': 'Contracts',
+      'ai_tool_list_payments': 'Payments',
+      'ai_tool_list_maintenance_requests': 'Maintenance requests',
+      'ai_tool_create_maintenance_request': 'Create maintenance request',
       'quick_actions': 'Quick Actions',
       'write_rental_contract': 'Write Rental Contract',
       'write_property_ad': 'Write Property Ad',
@@ -2161,6 +2195,17 @@ class AppLocalizations {
   // AI Assistant Screen
   String get smartAssistant => translate('smart_assistant');
   String get aiWelcomeMessage => translate('ai_welcome_message');
+  String get aiConfirm => translate('ai_confirm');
+  String get aiCancel => translate('ai_cancel');
+  String get aiRetry => translate('ai_retry');
+  String get aiNewChat => translate('ai_new_chat');
+  String get aiNeedsConfirmation => translate('ai_needs_confirmation');
+  String get aiActionCompleted => translate('ai_action_completed');
+  String get aiActionFailed => translate('ai_action_failed');
+  String get aiActionPending => translate('ai_action_pending');
+  String get aiActionCancelled => translate('ai_action_cancelled');
+  String get aiErrorGeneric => translate('ai_error_generic');
+  String aiToolLabel(String tool) => translate('ai_tool_$tool');
   String get quickActions => translate('quick_actions');
   String get writeRentalContract => translate('write_rental_contract');
   String get writePropertyAd => translate('write_property_ad');

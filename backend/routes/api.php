@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AiAgentController;
 use App\Http\Controllers\Api\V1\AiController;
 use App\Http\Controllers\Api\V1\ImageAnalysisController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
@@ -59,6 +60,15 @@ Route::prefix('v1')->group(function () {
             Route::post('market-analysis', [AiController::class, 'marketAnalysis']);
             Route::post('tenant-analysis', [AiController::class, 'tenantAnalysis']);
             Route::post('financial-predictions', [AiController::class, 'financialPredictions']);
+
+            Route::prefix('agent')->group(function () {
+                Route::post('chat', [AiAgentController::class, 'chat'])->middleware('throttle:ai-agent');
+                Route::get('conversations', [AiAgentController::class, 'conversations']);
+                Route::get('conversations/{conversation}', [AiAgentController::class, 'show'])->whereNumber('conversation');
+                Route::delete('conversations/{conversation}', [AiAgentController::class, 'destroy'])->whereNumber('conversation');
+                Route::post('actions/{action}/confirm', [AiAgentController::class, 'confirm'])->whereNumber('action')->middleware('throttle:ai-agent');
+                Route::post('actions/{action}/cancel', [AiAgentController::class, 'cancel'])->whereNumber('action');
+            });
         });
 
         Route::get('properties/search', [PropertyController::class, 'search']);

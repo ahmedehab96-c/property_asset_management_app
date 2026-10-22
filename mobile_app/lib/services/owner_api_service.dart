@@ -288,6 +288,48 @@ class OwnerApiService {
     return OwnerApiMappers.unwrapObject(res.data);
   }
 
+  Future<Map<String, dynamic>?> aiAgentChat({
+    required String message,
+    required String locale,
+    int? conversationId,
+  }) async {
+    final res = await _api.post(
+      ApiConfig.aiAgentChat,
+      data: {
+        'message': message,
+        'locale': locale,
+        'conversation_id': ?conversationId,
+      },
+      receiveTimeout: ApiConfig.aiReceiveTimeout,
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<List<Map<String, dynamic>>> aiAgentConversations() async {
+    final res = await _api.get(ApiConfig.aiAgentConversations);
+    return OwnerApiMappers.extractList(res.data)
+        .whereType<Map>()
+        .map((e) => Map<String, dynamic>.from(e))
+        .toList();
+  }
+
+  Future<Map<String, dynamic>?> aiAgentConversation(int id) async {
+    final res = await _api.get(ApiConfig.aiAgentConversation(id));
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
+  Future<Map<String, dynamic>?> aiAgentResolveAction(
+    int id, {
+    required bool confirm,
+    required String locale,
+  }) async {
+    final res = await _api.post(
+      confirm ? ApiConfig.aiAgentConfirm(id) : ApiConfig.aiAgentCancel(id),
+      data: {'locale': locale},
+    );
+    return OwnerApiMappers.unwrapObject(res.data);
+  }
+
   Future<Map<String, dynamic>?> aiMarketAnalysis({
     required String city,
     required String propertyType,

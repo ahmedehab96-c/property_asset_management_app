@@ -20,7 +20,7 @@
 3. ملاحظة: أول طلب بعد فترة خمول قد يأخذ 30-60 ثانية (استضافة مجانية).
 
 ### 📱 تطبيق الموبايل
-1. شغّله محلياً (قسم [البدء السريع](#2-تطبيق-الموبايل-flutter) تحت) — لا يوجد APK جاهز للتحميل حالياً.
+1. حمّل الـ APK من [صفحة الإصدارات](https://github.com/ahmedehab96-c/property_asset_management_app/releases/latest) — اختر `arm64-v8a` لمعظم الهواتف الحديثة، أو `armeabi-v7a` للأجهزة القديمة. أو شغّله محلياً (قسم [البدء السريع](#2-تطبيق-الموبايل-flutter) تحت).
 2. بشاشة الدخول اضغط زر "تعبئة بيانات تجريبية" (Fill demo)، أو أدخل يدوياً — البريد: `demo@demo.com` — كلمة المرور: `password` (حساب مالك/مستأجر).
 
 > نفس حسابات التجربة (`admin@demo.com` و`demo@demo.com`، كلمة المرور `password` للاثنين) مُجهّزة تلقائياً عبر الـ seeder — تقدر تعيد توليدها محلياً بـ `php artisan db:seed`.
@@ -33,7 +33,7 @@
 3. Note: the first request after idle may take 30-60s to wake up (free-tier hosting).
 
 ### 📱 Mobile app
-1. Run it locally (see [Quick start](#2-تطبيق-الموبايل-flutter) below) — no pre-built APK is published yet.
+1. Download the APK from the [Releases page](https://github.com/ahmedehab96-c/property_asset_management_app/releases/latest) — pick `arm64-v8a` for most modern phones, or `armeabi-v7a` for older devices. Or run it locally (see [Quick start](#2-تطبيق-الموبايل-flutter) below).
 2. On the login screen tap "Fill demo", or enter manually — email: `demo@demo.com` — password: `password` (owner/tenant account).
 
 > Both demo accounts (`admin@demo.com` and `demo@demo.com`, password `password` for both) are seeded automatically — regenerate them locally with `php artisan db:seed`.

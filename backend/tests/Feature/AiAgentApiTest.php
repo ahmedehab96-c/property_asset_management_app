@@ -88,6 +88,22 @@ class AiAgentApiTest extends TestCase
         $this->assertDatabaseHas('ai_conversations', ['id' => $response->json('data.conversation_id')]);
     }
 
+    public function test_empty_tool_arguments_are_sent_back_as_a_json_object(): void
+    {
+        Sanctum::actingAs(User::factory()->create());
+
+        Http::fakeSequence(self::GEMINI)
+            ->push($this->functionCall('get_portfolio_summary', []))
+            ->push($this->text('You have 0 properties.'));
+
+        $this->postJson('/api/v1/ai/agent/chat', ['message' => 'How many properties?', 'locale' => 'en'])
+            ->assertOk()
+            ->assertJsonPath('data.message.actions.0.status', 'completed');
+
+        // Gemini rejects `"args":[]` with a 400; it must be `"args":{}`.
+        Http::assertSent(fn (HttpRequest $request) => str_contains($request->body(), '"functionCall":{"name":"get_portfolio_summary","args":{}}'));
+    }
+
     public function test_unknown_tools_and_invalid_arguments_are_rejected(): void
     {
         Sanctum::actingAs(User::factory()->create());

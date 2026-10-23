@@ -73,8 +73,15 @@ class AgentService
                 break;
             }
 
-            // Echo the model turn back unchanged (keeps any thought signatures intact).
-            $contents[] = ['role' => 'model', 'parts' => $parts];
+            // Echo the model turn back (keeps thought signatures intact). PHP decodes
+            // `"args": {}` to [], which would re-encode as a JSON list that Gemini rejects.
+            $contents[] = ['role' => 'model', 'parts' => array_map(function (array $part) {
+                if (isset($part['functionCall']) && ($part['functionCall']['args'] ?? []) === []) {
+                    $part['functionCall']['args'] = new \stdClass;
+                }
+
+                return $part;
+            }, $parts)];
             $responses = [];
 
             foreach (array_slice($calls, 0, 4) as $part) {
@@ -84,7 +91,7 @@ class AgentService
                 $responses[] = ['functionResponse' => array_filter([
                     'id' => $part['functionCall']['id'] ?? null,
                     'name' => $part['functionCall']['name'],
-                    'response' => $response,
+                    'response' => $response === [] ? new \stdClass : $response,
                 ], fn ($value) => $value !== null)];
 
                 if ($proposal !== null) {

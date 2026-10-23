@@ -211,7 +211,7 @@ class GeminiService
 
     private function model(): string
     {
-        return (string) config('services.gemini.model', 'gemini-2.0-flash');
+        return (string) config('services.gemini.model', 'gemini-3.8-flash');
     }
 
     private function baseUrl(): string

@@ -80,7 +80,12 @@ class AgentService
             foreach (array_slice($calls, 0, 4) as $part) {
                 [$response, $action, $proposal] = $this->runCall($part['functionCall'], $user, $locale);
                 $actions[] = $action;
-                $responses[] = ['functionResponse' => ['name' => $part['functionCall']['name'], 'response' => $response]];
+                // Newer models tag each call with an id that the response must echo.
+                $responses[] = ['functionResponse' => array_filter([
+                    'id' => $part['functionCall']['id'] ?? null,
+                    'name' => $part['functionCall']['name'],
+                    'response' => $response,
+                ], fn ($value) => $value !== null)];
 
                 if ($proposal !== null) {
                     $pending = $proposal;

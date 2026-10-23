@@ -51,7 +51,7 @@ class AiApiTest extends TestCase
 
         config([
             'services.gemini.key' => 'test-key',
-            'services.gemini.model' => 'gemini-2.0-flash',
+            'services.gemini.model' => 'gemini-3.8-flash',
             'services.gemini.base_url' => 'https://generativelanguage.googleapis.com/v1beta',
         ]);
 

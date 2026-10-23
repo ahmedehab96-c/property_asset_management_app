@@ -64,7 +64,7 @@ class AiAgentApiTest extends TestCase
         Property::query()->create(['name' => 'Marina Tower', 'status' => 'available', 'monthly_revenue' => 9000]);
 
         Http::fakeSequence(self::GEMINI)
-            ->push($this->functionCall('search_properties', ['query' => 'Marina']))
+            ->push($this->functionCall('search_properties', ['query' => 'Marina'], 'call_1'))
             ->push($this->text('Marina Tower is available.'));
 
         $response = $this->postJson('/api/v1/ai/agent/chat', ['message' => 'Is Marina free?', 'locale' => 'en'])
@@ -79,6 +79,7 @@ class AiAgentApiTest extends TestCase
             $parts = data_get($request->data(), 'contents.2.parts.0.functionResponse');
 
             return $request->hasHeader('x-goog-api-key', 'test-key')
+                && ($parts['id'] ?? null) === 'call_1'
                 && ! str_contains($request->url(), 'key=')
                 && ($parts['response']['properties'][0]['name'] ?? null) === 'Marina Tower';
         });
@@ -275,9 +276,11 @@ class AiAgentApiTest extends TestCase
         ]);
     }
 
-    private function functionCall(string $name, array $args): array
+    private function functionCall(string $name, array $args, ?string $id = null): array
     {
-        return ['candidates' => [['content' => ['role' => 'model', 'parts' => [['functionCall' => ['name' => $name, 'args' => $args]]]]]]];
+        $call = array_filter(['id' => $id, 'name' => $name, 'args' => $args], fn ($value) => $value !== null);
+
+        return ['candidates' => [['content' => ['role' => 'model', 'parts' => [['functionCall' => $call, 'thoughtSignature' => 'sig']]]]]];
     }
 
     private function text(string $text): array

@@ -23,7 +23,7 @@ class ListContractsTool extends AgentTool
         return [
             'type' => 'OBJECT',
             'properties' => [
-                'status' => ['type' => 'STRING'],
+                'status' => ['type' => 'STRING', 'description' => 'English status code as stored, e.g. active. Never translate it.'],
                 'expiring_within_days' => ['type' => 'INTEGER', 'description' => 'Only contracts whose end date is between today and today + N days (1-365).'],
                 'limit' => self::limitSchema(),
             ],

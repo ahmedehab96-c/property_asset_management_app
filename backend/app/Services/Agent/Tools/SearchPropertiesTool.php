@@ -24,8 +24,8 @@ class SearchPropertiesTool extends AgentTool
             'type' => 'OBJECT',
             'properties' => [
                 'query' => ['type' => 'STRING', 'description' => 'Text to match in name, location or address.'],
-                'status' => ['type' => 'STRING'],
-                'type' => ['type' => 'STRING'],
+                'status' => ['type' => 'STRING', 'description' => 'English status code as stored, e.g. available, occupied. Never translate it.'],
+                'type' => ['type' => 'STRING', 'description' => 'English type code, e.g. apartment, villa, office. Never translate it.'],
                 'limit' => self::limitSchema(),
             ],
         ];

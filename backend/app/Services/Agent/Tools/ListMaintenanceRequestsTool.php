@@ -23,8 +23,8 @@ class ListMaintenanceRequestsTool extends AgentTool
         return [
             'type' => 'OBJECT',
             'properties' => [
-                'status' => ['type' => 'STRING'],
-                'priority' => ['type' => 'STRING'],
+                'status' => ['type' => 'STRING', 'description' => 'English status code as stored, e.g. in_progress, completed. Never translate it.'],
+                'priority' => ['type' => 'STRING', 'description' => 'English code: low, medium or high.'],
                 'property_id' => ['type' => 'INTEGER'],
                 'limit' => self::limitSchema(),
             ],

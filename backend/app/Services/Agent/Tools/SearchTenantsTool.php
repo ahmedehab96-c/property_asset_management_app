@@ -25,7 +25,7 @@ class SearchTenantsTool extends AgentTool
             'type' => 'OBJECT',
             'properties' => [
                 'query' => ['type' => 'STRING', 'description' => 'Text to match in the tenant name.'],
-                'status' => ['type' => 'STRING'],
+                'status' => ['type' => 'STRING', 'description' => 'English status code as stored, e.g. active. Never translate it.'],
                 'limit' => self::limitSchema(),
             ],
         ];

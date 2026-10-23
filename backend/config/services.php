@@ -44,7 +44,7 @@ return [
     'gemini' => [
         'key' => env('GEMINI_API_KEY'),
         'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
-        'model' => env('GEMINI_MODEL', 'gemini-3.8-flash'),
+        'model' => env('GEMINI_MODEL', 'gemini-3.1-flash-lite'),
         'temperature' => (float) env('GEMINI_TEMPERATURE', 0.7),
         'timeout' => (int) env('GEMINI_TIMEOUT', 60),
         'agent' => [
@@ -55,6 +55,14 @@ return [
             'per_day' => (int) env('AI_AGENT_PER_DAY', 200),
             'action_ttl_minutes' => (int) env('AI_AGENT_ACTION_TTL_MINUTES', 30),
         ],
+    ],
+
+    'whatsapp' => [
+        'token' => env('WHATSAPP_TOKEN'),
+        'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
+        'app_secret' => env('WHATSAPP_APP_SECRET'),
+        'verify_token' => env('WHATSAPP_VERIFY_TOKEN'),
+        'graph_version' => env('WHATSAPP_GRAPH_VERSION', 'v23.0'),
     ],
 
 ];

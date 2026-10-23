@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AiConversation extends Model
 {
-    protected $fillable = ['user_id', 'title', 'locale'];
+    protected $fillable = ['user_id', 'title', 'locale', 'channel'];
 
     public function user(): BelongsTo
     {
@@ -26,6 +26,7 @@ class AiConversation extends Model
             'id' => $this->id,
             'title' => $this->title,
             'locale' => $this->locale,
+            'channel' => $this->channel,
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];
     }

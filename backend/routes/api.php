@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\V1\TaskController;
 use App\Http\Controllers\Api\V1\TenantController;
 use App\Http\Controllers\Api\V1\UploadController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\WhatsAppWebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -40,6 +41,10 @@ Route::prefix('v1')->group(function () {
             Route::put('two-factor', [AuthController::class, 'updateTwoFactor']);
         });
     });
+
+    // Meta calls these directly; requests are verified by signature in the controller.
+    Route::get('whatsapp/webhook', [WhatsAppWebhookController::class, 'verify']);
+    Route::post('whatsapp/webhook', [WhatsAppWebhookController::class, 'receive'])->middleware('throttle:120,1');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('dashboard/metrics', [DashboardController::class, 'metrics']);
